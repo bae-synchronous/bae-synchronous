@@ -3,6 +3,7 @@ var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var nodemon = require('gulp-nodemon');
 var browserSync = require('browser-sync').create();
+var watch = require('gulp-watch');
 
 gulp.task('lint', function() {
   return gulp.src('index.js')
@@ -31,11 +32,6 @@ gulp.task('test', function () {
         }));
 });
 
-var reload      = browserSync.reload;
-
-// Save a reference to the `reload` method
-
-// Watch scss AND html files, doing different things with each.
 gulp.task('serve', function () {
 
     // Serve files from the root of this project
@@ -44,9 +40,11 @@ gulp.task('serve', function () {
             baseDir: "./public"
         }
     });
-
-    gulp.watch("*.**").on("change", reload);
 });
+
+gulp.task('watch', ['serve'], function(){
+    gulp.watch("*.**").on("change", browserSync.reload);
+})
 
 
 // Default Task
