@@ -1,0 +1,31 @@
+{
+  "name": "bae-synchronous",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bae-synchronous/bae-synchronous.git"
+  },
+  "author": "bae-synchronous",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bae-synchronous/bae-synchronous/issues"
+  },
+  "homepage": "https://github.com/bae-synchronous/bae-synchronous#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-nodemon": "^2.0.6",
+    "jshint": "^2.9.1"
+  }
+}
