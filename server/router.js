@@ -1,8 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var coordinates = require('./coordinates.js');
+var sheryl = require('./sheryl.js');
 
-app.use(bodyParser.json());
+ app.use(bodyParser.json());
+
 
 
 
