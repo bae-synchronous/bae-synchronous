@@ -1,4 +1,4 @@
-<doctype! html>
+<!DOCTYPE html>
   <html>
    <head>
      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
@@ -8,23 +8,25 @@
    <body>
      <div ng-app="bae-synchronous" ng-controller="MainController" class='container'>
      {{ display }}
-       <form class="" action="/" method="post">
-         <input type="text" id='homeAddress' name="address1" placeholder="home address">
-         <input type="text" id='workAddress' name="address2" placeholder="work address">
-         <select class='location'>
-           <option value='gym'>gym</option>
+       <form class="" action="/" method="post" ng-submit='postData()'>
+         <input type="text" id='homeAddress' ng-model='homeAddress' name="address1" placeholder="home address">
+         <input type="text" id='workAddress' ng-model='workAddress' name="address2" placeholder="work address">
+         <select class='location' ng-model='selectedPlace'>
+           <option ng-repeat='place in places'>{{place}}</option>
+           <!-- <option value='gym'>gym</option>
            <option value='restaraunt'>restaurant</option>
            <option value='cafe'>cafe</option>
            <option value='movie_theater'>movie theatre</option>
-           <option value='night_club'>night club</option>
+           <option value='night_club'>night club</option> -->
          </select>
-         <select class='time'>
+         <select class='time' ng-model='time'>
           <option value='5'>5 Minutes</option>
           <option value='10'>10 Minutes</option>
           <option value='15'>15 Minutes</option>
           <option value='20'>20 Minutes</option>
          </select>
        </form>
+       <button ng-click='postData()'>Submit</button>
      </div>
    </body>
   </html>
