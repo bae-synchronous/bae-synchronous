@@ -15,7 +15,7 @@ gulp.task('lint', function() {
   ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'));
+    .pipe(jshint.reporter({'fail': true}));
 });
 
 gulp.task('develop', function () {
