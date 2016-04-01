@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var coordinates = require('coordinates');
+var coordinates = require('./coordinates.js');
 
 app.use(bodyParser.json());
 
