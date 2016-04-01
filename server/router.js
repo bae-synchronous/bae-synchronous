@@ -4,7 +4,7 @@ var app = express();
 var coordinates = require('./coordinates.js');
 var sheryl = require('./sheryl.js');
 
- app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 
 
