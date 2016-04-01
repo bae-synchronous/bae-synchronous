@@ -5,16 +5,16 @@ var API_KEY ='AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ';
 // search term: "gym"
 // filter: 100minutes
 
-var dummyAddress = '1600+Amphitheatre+Parkway,+Mountain+View,+CA'
+var dummyAddress = '1600+Amphitheatre+Parkway,+Mountain+View,+CA';
 
-// take an address and convert it 
+// take an address and convert it
 
 function requestHandler(req,res){
 
 }
 
 function getCoordinates(address){
-    
+
     address = address || dummyAddress;
 
     axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
@@ -30,13 +30,13 @@ function getCoordinates(address){
         console.log('error',response);
       });
 
-};
+}
 
 //dummy data
 var dummyCoordinates = '-33.8670522,151.1957362';
-var dummyRadius = 500
-var dummyType = 'restaurant'
-var dummyName = 'cruise'
+var dummyRadius = 500;
+var dummyType = 'restaurant';
+var dummyName = 'cruise';
 
 
 function getPlaces(coordinates,radius,type,name){
@@ -62,9 +62,9 @@ axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {
   .catch(function (response) {
     console.log(response);
   });
-
+}
   module.exports = {
     getCoordinates: getCoordinates,
     requestHandler: requestHandler,
     getPlaces: getPlaces
-  }
+  };
