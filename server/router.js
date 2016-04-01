@@ -11,7 +11,3 @@ app.post('/', function(req, res) {
     sheryl.requestHandler(req,res);
     res.send('but we has no data!!!');
   });
-
-
-
-
