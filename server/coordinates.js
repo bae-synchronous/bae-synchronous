@@ -1,3 +1,41 @@
+var dummyObject = {
+    address1: {
+        address: '1600+Amphitheatre+Parkway,+Mountain+View,+CA'
+        coordinates: {
+            lat: 12312312,
+            lng: 12341324
+        }
+    },
+    address2: {
+        address: 'Mountain+View+High+School,+Truman Avenue,+Mountain+View,+CA,+United States'
+        coordinates: {
+            lat: 12312312,
+            lng: 12341324
+        }
+    },
+    thirdPoint: {
+        address: 'Mountain+View+High+School,+Truman Avenue,+Mountain+View,+CA,+United States'
+        coordinates: {
+            lat: 12312312,
+            lng: 12341324
+        }
+    },
+    category: 'gym',
+    maxTime: 30,
+    categoryListing: [
+        {
+            address: 'Mountain+View+High+School,+Truman Avenue,+Mountain+View,+CA,+United States'
+            coordinates: {
+                lat: 12312312,
+                lng: 12341324
+            },
+            places_id: 1242141,
+            timeFromAddress1: 12,
+            timeFromAddress2: 42
+        }
+    ];
+}
+
 var axios = require('axios');
 
 var API_KEY ='AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ';
@@ -11,7 +49,7 @@ function requestHandler(req,res){
 }
 
 var dummyAddress = '1600+Amphitheatre+Parkway,+Mountain+View,+CA';
-var dummyAddress2 = "275-291+Bedford Ave,+Brooklyn,+NY+11211,+USA"
+var dummyAddress2 = 'Mountain+View+High+School,+Truman Avenue,+Mountain+View,+CA,+United States'
 
 var getBothCoordinates = function (address1,address2){
 
@@ -21,8 +59,13 @@ var getBothCoordinates = function (address1,address2){
       .then(axios.spread(function (coordinatesObj1, coordinatesObj2) {      
         console.log('1',coordinatesObj1,'2',coordinatesObj2);
         var thirdPoint = getThirdPoint(coordinatesObj1,coordinatesObj2);
+        thirdPoint = convertCoordinatesToString(thirdPoint)
         console.log('midpoint',thirdPoint);
-      }))
+        return getPlaces(thirdPoint)
+
+      })).then(function(places){
+        console.log(places);
+      })
 }
 
 getBothCoordinates(dummyAddress,dummyAddress2)
@@ -34,8 +77,6 @@ function convertCoordinatesToString(coordinatesObj){
   var lng = coordinatesObj.lng;
   return lat + ',' + lng;
 }
-
-
 
 
 var dummyCoordinates = '-33.8670522,151.1957362';
@@ -87,7 +128,7 @@ function getCoordinates(address){
     .then(function (response) {
       // response = JSON.parse(response);
       var coordinatesObj = response.data.results[0].geometry.location;
-     console.log('coordinates',coordinatesObj); //{ lat: 37.4224497, lng: -122.0840329 }
+     // console.log('coordinates',coordinatesObj); //{ lat: 37.4224497, lng: -122.0840329 }
      return coordinatesObj;
     })
     .catch(function (response) {
@@ -114,7 +155,7 @@ function getPlaces(coordinates,radius,type,name){
     })
     .then(function (response) {
       var places = response.data.results;
-      console.log(places);
+      console.log('places',places);
       return places;
     })
     .catch(function (response) {
