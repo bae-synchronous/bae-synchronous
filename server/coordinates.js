@@ -10,7 +10,7 @@ var API_KEY ='AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ';
 // take an address and convert it 
 function requestHandler(req,res){
   var address1 = req.body.address1;
-  var address1 = req.body.address1;
+  var address2 = req.body.address2;
   var category = req.body.category;
   var duration = req.body.duration;
   // getCoordinates();
@@ -24,13 +24,13 @@ function convertCoordinatesToString(coordinatesObj){
   return lat + ',' + lng;
 }
 
-var dummyAddress = '1600+Amphitheatre+Parkway,+Mountain+View,+CA'
+var dummyAddress = '1600+Amphitheatre+Parkway,+Mountain+View,+CA';
 
 var dummyCoordinates = '-33.8670522,151.1957362';
 var dummyCoordinatesObj = { lat: 37.4224497, lng: -122.0840329 };
-var dummyRadius = '500'
-var dummyType = 'restaurant'
-var dummyName = 'cruise'
+var dummyRadius = '500';
+var dummyType = 'restaurant';
+var dummyName = 'cruise';
 
 //FUNCTIONS FOR TESTING
 
@@ -59,7 +59,7 @@ function getThirdPoint (coordinatesObj1, coordinatesObj2) {
   console.log(thirdPoint);
 
   return thirdPoint;
-};
+}
 
 getThirdPoint(dummyCoordinatesObj1,dummyCoordinatesObj2);
 
@@ -82,7 +82,7 @@ function getCoordinates(address){
     .catch(function (response) {
       console.log('error',response);
     });
-};
+}
 
 
 function getPlaces(coordinates,radius,type,name){
