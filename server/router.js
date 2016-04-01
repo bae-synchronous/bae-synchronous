@@ -5,7 +5,11 @@ var app = express();
 app.use(bodyParser.json());
 
 
-app.route('/location')
+
+//1 route
+//post request to root
+//req.body
+app.route('/')
   .get(function(req, res) {
     res.send('look ma! A mutation!');
   })
@@ -25,4 +29,4 @@ app.route('/category')
   })
   .post(function(req, res) {
     res.send('but we has no data');
-  })
+  });
