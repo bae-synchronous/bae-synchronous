@@ -38,13 +38,30 @@ var dummyName = 'cruise'
 // sample endpoint
 // https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ
 
-getPlaces();
+// getPlaces();
 
 function convertCoordinatesToString(coordinatesObj){
   var lat = coordinatesObj.lat;
   var lng = coordinatesObj.lng;
   return lat + ',' + lng;
 }
+
+var dummyCoordinatesObj1 = { lat: 37.4224497, lng: -122.0840329 };
+var dummyCoordinatesObj2 = { lat: 25.4224497, lng: -121.0840329 };
+// currently returns a middlepoint
+function getThirdPoint (coordinatesObj1, coordinatesObj2) {
+  coordinatesObj1 = dummyCoordinatesObj1;
+  coordinatesObj2 = dummyCoordinatesObj2;
+
+  var thirdPoint = {};
+  thirdPoint.lat = ((coordinatesObj1.lat + coordinatesObj2.lat)/2);
+  thirdPoint.lng = ((coordinatesObj1.lng + coordinatesObj2.lng)/2);
+  console.log(thirdPoint);
+
+  return thirdPoint;
+};
+
+getThirdPoint(dummyCoordinatesObj1,dummyCoordinatesObj2);
 
 function getCoordinates(address){
 
@@ -65,7 +82,6 @@ function getCoordinates(address){
     .catch(function (response) {
       console.log('error',response);
     });
-
 };
 
 
@@ -92,7 +108,6 @@ function getPlaces(coordinates,radius,type,name){
     .catch(function (response) {
       console.log(response);
     });
-
 }
 
 module.exports = {
