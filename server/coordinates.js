@@ -33,23 +33,23 @@ function getPlaces(coordinates,radius,type,name){
     coordinates = (typeof coordinates !== 'string')? helper.stringifyCoordinates(coordinates): coordinates;
 
     axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {
-      params: {
-        location: coordinates,
-        radius: radius,
-        type: type,
-        // name: name, // filtering results by name is possible via this parameter
-        key: 'AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ'
-      }
-    })
-    .then(function (response) {
-      var places = response.data.results;
-      console.log(places);
-      // places.forEach(function(place){ console.log (place.geometry.location)});
-      return places;
-    })
-    .catch(function (response) {
-      console.log('error catch, places',response);
-    });
+        params: {
+          location: coordinates,
+          radius: radius,
+          type: type,
+          // name: name, // filtering results by name is possible via this parameter
+          key: 'AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ'
+        }
+      })
+      .then(function (response) {
+        var places = response.data.results;
+        console.log(places);
+        // places.forEach(function(place){ console.log (place.geometry.location)});
+        return places;
+      })
+      .catch(function (response) {
+        console.log('error catch, places',response);
+      });
 }
 
 // this chains all of the functions below
@@ -78,3 +78,10 @@ module.exports = {
   getCoordinatesForEachAddress: getCoordinatesForEachAddress,
   getPlaces: getPlaces
 };
+
+
+
+
+
+
+
