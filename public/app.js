@@ -1,22 +1,28 @@
+//takes control of the div directly underneath the body
 angular.module('bae-synchronous', [])
 
 .factory('Map', function($http) {
   function getData() {
+    //returns data from the root directory
     return $http({
       method: '/GET',
       url: '/',
     });
   }
+  //address1, 2, category, and duration are passed in through the models from index.html
   function postData(address1, address2, category, duration) {
     return $http({
+      //send data to the back end
       method: 'POST',
       url: '/',
       data: {address1: address1, address2: address2, category: category,  duration: duration}
     })
+    //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
       return resp.data;
     });
   }
+  //we need to return the functions to the front end in order to access the functions
   return {
     getData: getData,
     postData: postData
@@ -25,20 +31,22 @@ angular.module('bae-synchronous', [])
 
 .controller('MainController', function ($scope, Map) {
     $scope.display = 'Test';
+    //function to be called on the form being submitted 
     $scope.postData = function() {
+      //pass in the model data into the Map factory
       Map.postData($scope.homeAddress, $scope.workAddress, $scope.selectedPlace, $scope.time)
       .then(function(error, data) {
         if (err) {
           console.log(err);
         } else {
-          console.log('your good', data);        
+          console.log('your good', data);
         }
       });
     };
 
 
 
-
+    //there must be a more efficent way of doing this......
     $scope.places = {
   accounting: 'accounting',
   airport: 'airport',
