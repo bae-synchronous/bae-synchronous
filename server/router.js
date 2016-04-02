@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var coordinates = require('./coordinates.js');
-var sheryl = require('./sheryl.js');
+var sheryl = require('./validCategoryLisings.js');
 
 app.use(bodyParser.json());
 
