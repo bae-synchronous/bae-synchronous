@@ -78,4 +78,3 @@ module.exports = {
   getCoordinatesForEachAddress: getCoordinatesForEachAddress,
   getPlaces: getPlaces
 };
-
