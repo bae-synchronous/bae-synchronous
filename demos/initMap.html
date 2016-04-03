@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+
+      function initMap() {
+        var myLatLng1 = {lat: -34.397, lng: 150.644};
+        var myLatLng2 = {lat: -34.597, lng: 150.644};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+        var marker1 = new google.maps.Marker({
+          position: myLatLng1,
+          map: map,
+          title: 'Hello World!'
+        });
+        var marker2 = new google.maps.Marker({
+          position: myLatLng2,
+          map: map,
+          title: 'Hello World!'
+        });
+
+        var infowindow = new google.maps.InfoWindow({
+          content: 'Crunch Gym'
+        });
+
+        marker1.addListener('click', function() {
+          infowindow.open(map, marker1);
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ&callback=initMap"
+    async defer></script>
+  </body>
+</html>
