@@ -13,4 +13,4 @@ function findMidpoint(coordinates1,coordinates2){
 module.exports = {
     getThirdPoint: getThirdPoint,
     findMidpoint: findMidpoint
-}
+};
