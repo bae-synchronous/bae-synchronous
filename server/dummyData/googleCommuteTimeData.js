@@ -16,7 +16,77 @@
 // Single Origin Address Data Sample:
   var googleCommuteTimeData_from_one_originAddress = {
 
+    "destination_addresses" : [
+      "100 Murray St, Pyrmont NSW 2009, Australia",
+      "117-129 Murray St, Pyrmont NSW 2009, Australia",
+      "50 Murray St, Pyrmont NSW 2009, Australia",
+      "37 Pyrmont St, Pyrmont NSW 2009, Australia",
+      "56 Pirrama Rd, Pyrmont NSW 2009, Australia"
+    ],
 
+    "origin_addresses" : [ "50 Murray St, Pyrmont NSW 2009, Australia" ],
+    "rows" : [
+      {
+         "elements" : [
+            {
+               "distance" : {
+                  "text" : "344 ft",
+                  "value" : 105
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 28
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "0.1 mi",
+                  "value" : 238
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 45
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "1 ft",
+                  "value" : 0
+               },
+               "duration" : {
+                  "text" : "1 min",
+                  "value" : 0
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "0.4 mi",
+                  "value" : 639
+               },
+               "duration" : {
+                  "text" : "3 mins",
+                  "value" : 154
+               },
+               "status" : "OK"
+            },
+            {
+               "distance" : {
+                  "text" : "0.3 mi",
+                  "value" : 468
+               },
+               "duration" : {
+                  "text" : "2 mins",
+                  "value" : 107
+               },
+               "status" : "OK"
+            }
+         ] // elements
+      }
+    ],  // rows
+    "status" : "OK"
   };
 
 /*
@@ -31,3 +101,6 @@
 
 
   };
+
+module.exports = googleCommuteTimeData_from_one_originAddress;
+// module.exports = googleCommuteTimeData_from_two_originAddresses;
