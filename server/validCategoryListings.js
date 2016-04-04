@@ -1,11 +1,8 @@
-// will probably rename this to validCategoryList.js
+// will probably rename this to validCategoryList.js from sheryl.js
 var axios = require('axios');
 var config = require('config');
-//var dummyJSON = require('dummyJSON');
-//var format_of_data_we_return_to_client = require('format_of_data_we_return_to_client');
-//var dummyData_in_our_format = require('dummyData_in_our_format');
+
 var inputData = require('categoryListings_from_Steve');
-// var dummyData = require('dummyData');
 
 function requestHandler(req,res){
   module.exports = {
@@ -13,16 +10,13 @@ function requestHandler(req,res){
   }
 }
 
-
-// want these to be Global, no Window on server, dunno how to
-//explicitly call them out as global (to this file) vars
-
 // GoogleMapsDistanceMatrixAPI_base uri
 var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
-var API_KEY  = config.shAPIkey_googleDistanceMatrixAPI;
+// var API_KEY  = config.shAPIkey_googleDistanceMatrixAPI;
+var API_KEY = config.shServerKey1;
 
-function getDurations(originAddress, originNumber, categoryObjects){
-  var addressPropertyName = 'address' + originNumber;
+function addCategoryDurations(inputData){
+  // var addressPropertyName = 'address' + originNumber;
   // ie 'address1', or 'address2'
   // won't need if query both addresses at once.
 
@@ -31,8 +25,9 @@ function getDurations(originAddress, originNumber, categoryObjects){
   var space = '%2C';
   var pipe  = '%7C';
 
-  _.each(inputData, function(categoryListing){
-    destination += coordinates.lat + space + coordinates.lng + pipe;
+  _.each(inputData.categoryListings, function(categoryListing){
+    destinations += categoryListing.coordinates.lat + space +
+                    categoryListing.coordinates.lng + pipe;
   })
 
     // AXIOS EXAMPLE for building query
@@ -55,10 +50,14 @@ function getDurations(originAddress, originNumber, categoryObjects){
       //           });
 
   // can actually pass in both origin addresses. Next round
+  // address1 is Hard Coded in below.
+    // will either need to make two calls, or
+    // query for both address1 and address2 in one call
+    // Starting with a single address..
   var queryString = '' + '?' + 'units=imperial' +
                          // '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
-                         '&' + 'origins' + inputData[addressPropertyName].coordinates.lat +
-                               ','       + inputData[addressPropertyName].coordinates.lng +
+                         '&' + 'origins=' + inputData.address1.coordinates.lat +
+                               ','        + inputData.address1.coordinates.lng +
                          '&' + 'destinations=' + destinations +
                          '&' + 'key=' + API_KEY;
 
@@ -76,6 +75,8 @@ function getDurations(originAddress, originNumber, categoryObjects){
   // populate our inputData with the commute times we received back from this query
 
 }
+
+
 
 
 /*
@@ -126,7 +127,14 @@ function getDurations(originAddress, originNumber, categoryObjects){
 // }
 
 
-/* Object returned to Client will ultimately look KINDA like:
+// server.categoryListingObject.js
+// details the correct, current format for the categoryObjects
+// CONTRACT: for the full object that we return to client is
+// example at: server/dummyData/data_we_return_to_client
+
+/* Object returned to Client will ultimately look KINDA like
+// (see above for disclaimer):
+
   categoryAddress:
   categoryLatLong: {lat: , long: },
   durationToAddress1:
