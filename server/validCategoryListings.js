@@ -2,7 +2,9 @@
 var axios = require('axios');
 var config = require('config');
 
-var inputData = require('categoryListings_from_Steve');
+var inputData = require('dummyData/categoryListings_from_Steve');
+var googleCommuteTimes = require('dummyData/googleCommuteTimeData');
+
 
 function requestHandler(req,res){
   module.exports = {
@@ -54,17 +56,31 @@ function addCategoryDurations(inputData){
     // will either need to make two calls, or
     // query for both address1 and address2 in one call
     // Starting with a single address..
-  var queryString = '' + '?' + 'units=imperial' +
-                         // '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
-                         '&' + 'origins=' + inputData.address1.coordinates.lat +
-                               ','        + inputData.address1.coordinates.lng +
-                         '&' + 'destinations=' + destinations +
-                         '&' + 'key=' + API_KEY;
 
-  var google_req = base_url + queryString;
+  // query string for a single  origin address
+  var queryString_1addr = '' + '?' + 'units=imperial' +
+                          // '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
+                          '&' + 'origins=' + inputData.address1.coordinates.lat +
+                                ','        + inputData.address1.coordinates.lng +
+                          '&' + 'destinations=' + destinations +
+                          '&' + 'key=' + API_KEY;
 
-  // make our query
-  // say our data is returned in a 'data' object
+  var google_req1 = base_url + queryString_1addr;
+
+  // query string with both source addresses
+  var queryString_2addr = '' + '?' + 'units=imperial' +
+                          // '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
+                          '&' + 'origins=' + inputData.address1.coordinates.lat +
+                                ','        + inputData.address1.coordinates.lng +
+                                 pipe      + inputData.address2.coordinates.lat +
+                                ','        + inputData.address2.coordinates.lng +
+                          '&' + 'destinations=' + destinations +
+                          '&' + 'key=' + API_KEY;
+
+  //var google_req2 = base_url + queryString_2addr;
+  //var google_commute_times_from_2_origin_addresses = base_url + queryString_2addr;
+  //console.log(google_req2);
+
   var googleCommuteTimeData_from_single_originAddress = {
 
   };
