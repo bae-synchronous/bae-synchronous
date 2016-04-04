@@ -11,8 +11,7 @@
 
 var categoryListings_from_Steve = {
     address1: {
-        address: '50 Murray Street, Pyrmont
-        ',
+        address: '50 Murray Street, Pyrmont',
         coordinates: { lat: -33.870353, lng: 151.197892 }
     },
     address2: {
@@ -29,7 +28,7 @@ var categoryListings_from_Steve = {
     categoryListings: [
         {
             name: 'ibis Sydney Darling Harbour',
-            address: '70 Murray Street, Pyrmont'
+            address: '70 Murray Street, Pyrmont',
             coordinates: { lat: -33.8712116, lng: 151.1979837 },
             timeFromAddress1: null,
             timeFromAddress2: null,
@@ -38,7 +37,7 @@ var categoryListings_from_Steve = {
         },
         {
             name: 'Novotel Sydney on Darling Harbour',
-            address: '100 Murray Street, Pyrmont'
+            address: '100 Murray Street, Pyrmont',
             coordinates: { lat: -33.87229689999999, lng: 151.1979047 },
             timeFromAddress1: null,
             timeFromAddress2: null,
@@ -47,7 +46,7 @@ var categoryListings_from_Steve = {
         },
         {
             name: 'The Little Snail Restaurant',
-            address: '50 Murray Street, Pyrmont'
+            address: '50 Murray Street, Pyrmont',
             coordinates: { lat: -33.870353, lng: 151.197892 },
             timeFromAddress1: null,
             timeFromAddress2: null,
@@ -56,7 +55,7 @@ var categoryListings_from_Steve = {
         },
         {
             name: 'Blue Eye Dragon',
-            address: '37 Pyrmont Street, Pyrmont'
+            address: '37 Pyrmont Street, Pyrmont',
             coordinates: { lat: -33.8676109, lng: 151.1937712 },
             timeFromAddress1: null,
             timeFromAddress2: null,
@@ -65,7 +64,7 @@ var categoryListings_from_Steve = {
         },
         {
             name: 'The Star',
-            address: '80 Pyrmont Street, Pyrmont'
+            address: '80 Pyrmont Street, Pyrmont',
             coordinates: { lat: -33.8680013, lng: 151.195248 },
             timeFromAddress1: null,
             timeFromAddress2: null,
