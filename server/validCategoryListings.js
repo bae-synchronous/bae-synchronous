@@ -2,9 +2,9 @@
 var axios = require('axios');
 var config = require('config');
 //var dummyJSON = require('dummyJSON');
-var format_of_returned_data = require('format_of_returned_data');
-var dummyData_in_our_format = require('dummyData_in_our_format');
-var dummyData_list_of_categories = require('dummyData_list_of_categories');
+//var format_of_data_we_return_to_client = require('format_of_data_we_return_to_client');
+//var dummyData_in_our_format = require('dummyData_in_our_format');
+var inputData = require('categoryListings_from_Steve');
 // var dummyData = require('dummyData');
 
 function requestHandler(req,res){
@@ -22,13 +22,16 @@ var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
 var API_KEY  = config.shAPIkey_googleDistanceMatrixAPI;
 
 function getDurations(originAddress, originNumber, categoryObjects){
+  var addressPropertyName = 'address' + originNumber;
+  // ie 'address1', or 'address2'
+  // won't need if query both addresses at once.
 
   // build destination section of query parameter
   var destinations = '';
   var space = '%2C';
   var pipe  = '%7C';
 
-  _.each(dummyData_list_of_categories, function(categoryListing){
+  _.each(inputData, function(categoryListing){
     destination += coordinates.lat + space + coordinates.lng + pipe;
   })
 
@@ -51,8 +54,11 @@ function getDurations(originAddress, originNumber, categoryObjects){
       //             console.log(response);
       //           });
 
+  // can actually pass in both origin addresses. Next round
   var queryString = '' + '?' + 'units=imperial' +
-                         '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
+                         // '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
+                         '&' + 'origins' + inputData[addressPropertyName].coordinates.lat +
+                               ','       + inputData[addressPropertyName].coordinates.lng +
                          '&' + 'destinations=' + destinations +
                          '&' + 'key=' + API_KEY;
 
@@ -60,9 +66,14 @@ function getDurations(originAddress, originNumber, categoryObjects){
 
   // make our query
   // say our data is returned in a 'data' object
+  var googleCommuteTimeData_from_single_originAddress = {
 
-  // populate our data with the commute time we received back from this query
-  // dummyData_list_of_categories
+  };
+
+  // convenience variable
+  var commuteTime_data = googleCommuteTimeData_from_single_originAddress;
+
+  // populate our inputData with the commute times we received back from this query
 
 }
 
@@ -88,7 +99,7 @@ function getDurations(originAddress, originNumber, categoryObjects){
     // durationAddress2
 
 
-function getDurations(originAddress, originNumber, categoryObjects){
+// function getDurations(originAddress, originNumber, categoryObjects){
   // originNumber will be either '1', or '2' - enables DRY function
     // append to "address" and "durationToAddress"
     // so that we can add correct field names to our object.
@@ -112,7 +123,7 @@ function getDurations(originAddress, originNumber, categoryObjects){
         //  on this object.
         // add originAddress to this Object as well
         // (we may want to display )
-
+// }
 
 
 /* Object returned to Client will ultimately look KINDA like:
@@ -133,4 +144,3 @@ function getDurations(originAddress, originNumber, categoryObjects){
   originLatLong1:
   originLatLong2:
 */
-
