@@ -8,7 +8,7 @@ function stringifyCoordinates(coordinatesObj){
 
 // addresses appended to URL for API call needs to replace its empty spaces with a plus '+'
 function replaceEmptySpaces(address){
-  return address.replace(/ /g, '+');  
+  return address.replace(/ /g, '+');
 }
 
 module.exports = {
