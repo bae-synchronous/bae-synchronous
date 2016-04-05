@@ -30,10 +30,11 @@ angular.module('bae-synchronous', [])
 })
 
 .controller('MainController', function ($scope, Map) {
-    $scope.display = 'Test';
-    //function to be called on the form being submitted 
+    $scope.submitted = false;
+    //function to be called on the form being submitted
     $scope.postData = function() {
       //pass in the model data into the Map factory
+      $scope.submitted = true;
       Map.postData($scope.homeAddress, $scope.workAddress, $scope.selectedPlace, $scope.time)
       .then(function(error, data) {
         if (err) {

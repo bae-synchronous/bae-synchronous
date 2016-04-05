@@ -1,33 +1,55 @@
 <!DOCTYPE html>
   <html>
    <head>
-     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
-     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css'></script>
-     
-     <script src="app.js"></script>
+
+    <script src="https://code.jquery.com/jquery-2.2.2.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <link rel="stylesheet" href="/main.css" media="screen" title="no title" charset="utf-8">
+    <script src="app.js"></script>
+
    </head>
    <body>
-     <div ng-app="bae-synchronous" ng-controller="MainController" class='container'>
-     {{ display }}
-       <form class="" action="/" method="post" ng-submit='postData()'>
-         <input type="text" id='homeAddress' ng-model='homeAddress' name="address1" placeholder="home address">
-         <input type="text" id='workAddress' ng-model='workAddress' name="address2" placeholder="work address">
-         <select class='location' ng-model='selectedPlace'>
-           <option ng-repeat='place in places'>{{place}}</option>
-           <!-- <option value='gym'>gym</option>
-           <option value='restaraunt'>restaurant</option>
-           <option value='cafe'>cafe</option>
-           <option value='movie_theater'>movie theatre</option>
-           <option value='night_club'>night club</option> -->
-         </select>
-         <select class='time' ng-model='time'>
-          <option value='5'>5 Minutes</option>
-          <option value='10'>10 Minutes</option>
-          <option value='15'>15 Minutes</option>
-          <option value='20'>20 Minutes</option>
-         </select>
-       </form>
-       <button ng-click='postData()'>Submit</button>
+     <div ng-app="bae-synchronous" ng-controller="MainController" class='mainContainer'>
+
+       <div class="formDiv">
+         <form class="" action="/" method="post" ng-submit='postData()' class="mainForm">
+           <span style="padding: 10px;" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+
+           <input type="text" id='homeAddress' ng-model='homeAddress' name="address1" placeholder="home address">
+           <input type="text" id='workAddress' ng-model='workAddress' name="address2" placeholder="work address">
+           <span>Category: </span>
+           <select class='location' ng-model='selectedPlace'>
+             <option ng-repeat='place in places'>{{place}}</option>
+             <!-- <option value='gym'>gym</option>
+             <option value='restaraunt'>restaurant</option>
+             <option value='cafe'>cafe</option>
+             <option value='movie_theater'>movie theatre</option>
+             <option value='night_club'>night club</option> -->
+           </select>
+           <span>Maximum Duration: </span>
+           <select class='time' ng-model='time'>
+            <option value='5'>5 Minutes</option>
+            <option value='10'>10 Minutes</option>
+            <option value='15'>15 Minutes</option>
+            <option value='20'>20 Minutes</option>
+           </select>
+           <button class="formSubmitButton btn btn-primary" ng-click='postData()'>Submit</button>
+         </form>
+       </div>
+
+       <div class="pictureDiv" ng-if="!submitted">
+         <h1>Picture</h1>
+       </div>
+
+       <div class="listDiv col-sm-3" ng-if="submitted">
+
+       </div>
+
+       <div class="mapDiv col-sm-9" ng-if="submitted">
+
+       </div>
      </div>
    </body>
   </html>

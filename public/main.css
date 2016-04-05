@@ -1,0 +1,67 @@
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: helvetica, sans-serif;
+  padding: 0px;
+  width: 100%;
+  margin: 0px;
+  background: #606c88; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #606c88 , #3f4c6b); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #606c88 , #3f4c6b); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  width: 250px;
+}
+
+.location {
+  padding: 10px;
+}
+
+.time {
+  padding: 10px;
+}
+
+.mainContainer {
+  width: 100%;
+}
+
+.formSubmitButton {
+  display: inline-block;
+  background-color: orange;
+}
+
+.formSubmitButton:hover {
+  display: inline-block;
+  background-color: yellow;
+  color: black;
+}
+
+.formDiv {
+  padding: 10px;
+}
+
+.formDiv span {
+  color: white;
+}
+
+.listDiv {
+  padding: 15px;
+  background-color: black; /*(just so it's visible)*/
+}
+
+.mapDiv {
+  padding: 15px;
+  background-color: white; /*(just so it's visible)*/
+}
+
+.mainForm {
+  display: inline-block;
+}
