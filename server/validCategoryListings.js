@@ -9,7 +9,7 @@ var googleCommuteTimes = require('dummyData/googleCommuteTimeData');
 function requestHandler(req,res){
   module.exports = {
   requestHandler: requestHandler,
-  }
+  };
 }
 
 // GoogleMapsDistanceMatrixAPI_base uri
