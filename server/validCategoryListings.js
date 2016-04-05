@@ -59,7 +59,6 @@ function addCategoryDurations(inputData){
 
   // query string for a single  origin address
   var queryString_1addr = '' + '?' + 'units=imperial' +
-                          // '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
                           '&' + 'origins=' + inputData.address1.coordinates.lat +
                                 ','        + inputData.address1.coordinates.lng +
                           '&' + 'destinations=' + destinations +
@@ -69,7 +68,6 @@ function addCategoryDurations(inputData){
 
   // query string with both source addresses
   var queryString_2addr = '' + '?' + 'units=imperial' +
-                          // '&' + 'origins=' + address1.coordinates.lat + ',' + address1.coordinates.lng +
                           '&' + 'origins=' + inputData.address1.coordinates.lat +
                                 ','        + inputData.address1.coordinates.lng +
                                  pipe      + inputData.address2.coordinates.lat +
