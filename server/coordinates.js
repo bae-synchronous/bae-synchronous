@@ -81,6 +81,7 @@ function getPlacesForAddresses(address1, address2, radius, type) {
 
 // forTesting
 // getPlaces({ lat: -33.868981950000006, lng: 151.1958316 },dummyRadius,dummyType,dummyName)
+//
 
 module.exports = {
   getCoordinates: getCoordinates,
