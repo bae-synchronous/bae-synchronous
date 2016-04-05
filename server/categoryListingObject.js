@@ -19,12 +19,12 @@
 var categoryListingObject =
         {
             name: '',
-            address: ''
+            address: '',
             coordinates: { lat: null, lng: null },  // numbers
             timeFromAddress1: null,                 // number: time in minutes
             timeFromAddress2: null,                 // number: time in minutes
             place_id: '',
             rating: null                            // number: 1-5 or 1-10
-        }
+        };
 
 module.exports = categoryListingObject;

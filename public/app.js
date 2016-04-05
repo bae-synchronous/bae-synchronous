@@ -1,12 +1,15 @@
 //takes control of the div directly underneath the body
+//TODO check for atom white spaces; to check for indentation being correct;
+
+
 angular.module('bae-synchronous', [])
 
-.factory('Map', function($http) {
+.factory('Map', function($http, $q) {
   function getData() {
     //returns data from the root directory
     return $http({
       method: '/GET',
-      url: '/',
+      url: $q,
     });
   }
   //address1, 2, category, and duration are passed in through the models from index.html
@@ -14,7 +17,7 @@ angular.module('bae-synchronous', [])
     return $http({
       //send data to the back end
       method: 'POST',
-      url: '/',
+      url: '/places',
       data: {address1: address1, address2: address2, category: category,  duration: duration}
     })
     //asychnronous call so we need to use a promise in order to make sure we get the data
