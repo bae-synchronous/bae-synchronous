@@ -11,7 +11,7 @@ gulp.task('lint', function() {
     './public/**/.js',
     './public/*.js',
     './server/*.js',
-    './test/*.js'
+    './spec/*.js'
   ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
@@ -20,7 +20,7 @@ gulp.task('lint', function() {
 
 gulp.task('develop', function () {
   nodemon({
-    script: 'index.js',
+    script: 'server/router.js',
     ext: 'html js',
     env: { 'NODE_ENV': 'development' },
     tasks: ['lint', 'test']
@@ -31,7 +31,7 @@ gulp.task('develop', function () {
 });
 
 gulp.task('test', function () {
-  gulp.src('test/**.js')
+  gulp.src('specs/**.js')
     .pipe(mocha({
       clearRequireCache: true,
       ignoreLeaks: true
