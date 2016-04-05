@@ -16,9 +16,35 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>
+    <div id="map" ng-app='bae-synchronous' ng-controller="MainController"></div>
     <script>
       var map;
+
+      //dummy object used to test to see if the for loop worked.
+      var data = [
+        {
+          name: 'Crunch',
+          latitude: -34.397,
+          longitude: 150.644,
+          description: {
+            content: 'Crunch Gym',
+            reviews: 'this place is the shit',
+            distanceFromHome: 10,
+            distanceFromWork: 5
+          },
+        },
+        {
+          name: 'Crunch',
+          latitude: -39.397,
+          longitude: 150.644,
+          description: {
+            content: 'Crunch Gym',
+            reviews: 'this place is the shit',
+            distanceFromHome: 10,
+            distanceFromWork: 5
+          }
+        }
+      ];
 
       function initMap() {
         var myLatLng1 = {lat: -34.397, lng: 150.644};
@@ -27,27 +53,63 @@
           center: {lat: -34.397, lng: 150.644},
           zoom: 8
         });
-        var marker1 = new google.maps.Marker({
-          position: myLatLng1,
+        //cycles over the data obj and then extracts info as needed
+      for (var i = 0; i < data.length; i++) {
+        var position = new google.maps.LatLng(data[i].latitude, data[i].longitude);
+        markers[i] = new google.maps.Marker({
+          position: position,
           map: map,
-          title: 'Hello World!'
+          description: data[i].description,
+          id: i
         });
-        var marker2 = new google.maps.Marker({
-          position: myLatLng2,
-          map: map,
-          title: 'Hello World!'
+
+
+        //doesn't work
+        var infoWindow = new google.maps.InfoWindow({
+          content: data[i].name
         });
+
+        infoWindow.open(map, markers[i]);
+        //goes to the current marker, and then displays all of the info in the description. 
+        google.maps.event.addListener(markers[i], 'click', function() {
+          console.log(markers[this.id].description);
+          for (var key in markers[this.id].description) {
+            alert(markers[this.id].description[key]);
+          }
+          // alert(markers[this.id].description);
+
+          // console.log(data[0].description.content)
+          console.log(markers[this.id].description);
+        })
+      }
+
+
+        // var marker1 = new google.maps.Marker({
+        //   position: myLatLng1,
+        //   map: map,
+        //   title: 'Hello World!'
+        // });
+        // var marker2 = new google.maps.Marker({
+        //   position: myLatLng2,
+        //   map: map,
+        //   title: 'Hello World!'
+        // });
 
         var infowindow = new google.maps.InfoWindow({
-          content: 'Crunch Gym'
+          content: 'Crunch Gym',
+          reviews: 'this place is the shit',
+          distanceFromHome: 10,
+          distanceFromWork: 5
         });
 
-        marker1.addListener('click', function() {
-          infowindow.open(map, marker1);
-        });
+        // marker1.addListener('click', function() {
+        //   infowindow.open(map, marker1);
+        // });
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ&callback=initMap"
     async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
