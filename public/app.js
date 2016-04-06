@@ -39,15 +39,14 @@ angular.module('bae-synchronous', [])
       //pass in the model data into the Map factory
       $scope.submitted = true;
       Map.postData($scope.homeAddress, $scope.workAddress, $scope.selectedPlace, $scope.time)
-      .then(function(error, data) {
+      .then(function(data,err) {
         if (err) {
-          console.log(err);
+          console.log('error message',err);
         } else {
           console.log('your good', data);
         }
       });
     };
-
 
 
     //there must be a more efficent way of doing this......

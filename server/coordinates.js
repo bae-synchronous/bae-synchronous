@@ -16,7 +16,8 @@ function getCoordinates(address){
       }
     })
     .then(function (response) {
-      var coordinatesObj = response.data.results[0].geometry.location;
+
+      var coordinatesObj = response.data.results[0].geometry.location;       
       console.log(coordinatesObj);
       return coordinatesObj;
     })
