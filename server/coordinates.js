@@ -48,6 +48,8 @@ function getPlaces(coordinates,radius,type,name){
       return places;
     })
     .catch(function (response) {
+
+      //TODO fix error error catch, places { [Error: socket hang up] code: 'ECONNRESET' }
       console.log('error catch, places',response);
     });
 }
@@ -57,24 +59,33 @@ var getCoordinatesForEachAddress = function (address1,address2){
 
     var promises = [getCoordinates(address1), getCoordinates(address2)];
 
-    axios.all(promises)
+    return axios.all(promises)
       .then(axios.spread(function (coordinatesObj1, coordinatesObj2) {
-
         var thirdPoint = getThirdPoint(coordinatesObj1,coordinatesObj2);
-        thirdPoint = stringifyCoordinates(thirdPoint);
-
-        return getPlaces(thirdPoint);
-
-      })).then(function(places){
-        console.log('This will return an array of ',places);
-      });
+        thirdPoint = helper.stringifyCoordinates(thirdPoint);
+        return thirdPoint;
+      }));
 };
+
+//TODO write catch for promises
+function getPlacesForAddresses(address1, address2, radius, type) {
+  return new Promise(function(resolve, reject) {
+    getCoordinatesForEachAddress(address1, address2).then(function(thirdPoint) {
+      getPlaces(thirdPoint, radius, type)
+        .then(function(places) {
+          resolve(places);
+        });
+    });
+  });
+}
 
 // forTesting
 // getPlaces({ lat: -33.868981950000006, lng: 151.1958316 },dummyRadius,dummyType,dummyName)
+//
 
 module.exports = {
   getCoordinates: getCoordinates,
   getCoordinatesForEachAddress: getCoordinatesForEachAddress,
-  getPlaces: getPlaces
+  getPlaces: getPlaces,
+  getPlacesForAddresses: getPlacesForAddresses
 };

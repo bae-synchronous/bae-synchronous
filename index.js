@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var requestHandler = require('./server/request_handler.js');
 
 app.set('port', (process.env.PORT || 8000));
 
@@ -12,6 +13,10 @@ app.post('/', function(req, res) {
     // coordinates.requestHandler(req,res);
     // sheryl.requestHandler(req,res);
     // res.send('but we has no data!!!');
+});
+
+app.post('/places', function(req, res) {
+  requestHandler(req, res);
 });
 
 app.listen(app.get('port'), function () {
