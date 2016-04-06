@@ -19,7 +19,8 @@
     <div id="map" ng-app='bae-synchronous' ng-controller="MainController"></div>
     <script>
       var map;
-
+      var markers = [];
+      var contents = [];
       //dummy object used to test to see if the for loop worked.
       var data = [
         {
@@ -63,15 +64,23 @@
           id: i
         });
 
-
         //doesn't work
         var infoWindow = new google.maps.InfoWindow({
-          content: data[i].name
+          content: markers[i].description.content,
+          reviews: markers[i].description.reviews,
+          distanceFromHome: markers[i].description.distanceFromHome,
+          distanceFromWork: markers[i].description.distanceFromWork
         });
 
-        infoWindow.open(map, markers[i]);
-        //goes to the current marker, and then displays all of the info in the description. 
+        // var infoWindow = new google.maps.InfoWindow({
+        //   content: data[i].name
+        // });
+
+
+        //goes to the current marker, and then displays all of the info in the description.
         google.maps.event.addListener(markers[i], 'click', function() {
+          infoWindow.open(map, markers[i]);
+          map.panTo(markers[i].getPosition());
           console.log(markers[this.id].description);
           for (var key in markers[this.id].description) {
             alert(markers[this.id].description[key]);
@@ -95,12 +104,7 @@
         //   title: 'Hello World!'
         // });
 
-        var infowindow = new google.maps.InfoWindow({
-          content: 'Crunch Gym',
-          reviews: 'this place is the shit',
-          distanceFromHome: 10,
-          distanceFromWork: 5
-        });
+
 
         // marker1.addListener('click', function() {
         //   infowindow.open(map, marker1);
