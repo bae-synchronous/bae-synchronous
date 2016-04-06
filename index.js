@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var requestHandler = require('./server/request_handler.js');
-var dummyData = require('./server/dummyData/categoryListings_from_Steve');
+var dummyData = require('./server/dummyData/data_we_return_to_client');
 
 app.set('port', (process.env.PORT || 8000));
 
@@ -22,3 +22,4 @@ app.post('/places', function(req, res) {
 app.listen(app.get('port'), function () {
     console.log('bae-synchronous is running on port ', app.get('port'));
 });
+
