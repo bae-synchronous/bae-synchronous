@@ -43,7 +43,7 @@ angular.module('bae-synchronous', [])
         if (err) {
           console.log('error message',err);
         } else {
-          console.log('your good', data);
+          console.log("you're good", data);
         }
       });
     };
