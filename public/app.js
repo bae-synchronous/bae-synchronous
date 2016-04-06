@@ -18,7 +18,7 @@ angular.module('bae-synchronous', [])
       //send data to the back end
       method: 'POST',
       url: '/places',
-      data: {address1: address1, address2: address2, category: category,  duration: duration}
+      data: {address1: address1, address2: address2, category: category,  maxTime: duration}
     })
     //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
