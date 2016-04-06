@@ -1,6 +1,6 @@
 //takes control of the div directly underneath the body
 //TODO check for atom white spaces; to check for indentation being correct;
-
+var testGlobal;
 
 angular.module('bae-synchronous', [])
 
@@ -18,7 +18,7 @@ angular.module('bae-synchronous', [])
       //send data to the back end
       method: 'POST',
       url: '/places',
-      data: {address1: address1, address2: address2, category: category,  duration: duration}
+      data: {address1: address1, address2: address2, category: category,  maxTime: duration}
     })
     //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
@@ -34,6 +34,8 @@ angular.module('bae-synchronous', [])
 
 .controller('MainController', function ($scope, Map) {
     $scope.submitted = false;
+    $scope.listings = {};
+    $scope.categoryListings = {};
     //function to be called on the form being submitted
     $scope.postData = function() {
       //pass in the model data into the Map factory
@@ -43,7 +45,9 @@ angular.module('bae-synchronous', [])
         if (err) {
           console.log('error message',err);
         } else {
-          console.log('your good', data);
+          console.log("Recieved data from server", JSON.parse(JSON.parse(data)));
+          $scope.listings = JSON.parse(JSON.parse(data));
+          $scope.categoryListings = $scope.listings.categoryListings;
         }
       });
     };

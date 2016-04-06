@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <link rel="stylesheet" href="/main.css" media="screen" title="no title" charset="utf-8">
     <script src="app.js"></script>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
 
    </head>
    <body>
@@ -44,11 +45,21 @@
        </div>
 
        <div class="listDiv col-sm-3" ng-if="submitted">
-
+         <div class="categoryListing" ng-repeat="listing in categoryListings">
+           <div>
+             Name: {{ listing.name }}
+           </div>
+           <div>
+             Address: {{ listing.address }}
+           </div>
+           <div>
+             Rating: {{ listing.rating }}
+           </div>
+         </div>
        </div>
 
        <div class="mapDiv col-sm-9" ng-if="submitted">
-
+         <div id="map"></div>
        </div>
      </div>
    </body>
