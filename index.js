@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var requestHandler = require('./server/request_handler.js');
 var dummyData = require('./server/dummyData/data_we_return_to_client');
 
-// var testValidCategoryListings = require('./server/validCategoryListings')
+// var test = require('./server/validCategoryListings')
 
 app.set('port', (process.env.PORT || 8000));
 
@@ -25,4 +25,4 @@ app.listen(app.get('port'), function () {
     console.log('bae-synchronous is running on port ', app.get('port'));
 });
 
-// testValidCategoryListings.getValidCategoryListings();
+// test.getValidCategoryListings();
