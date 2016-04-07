@@ -123,13 +123,19 @@
           map: map
         });
         console.log('markers[i]', markers[i]);
+        var content = '<div>' + name + categories[i].name + '</div>';
 
-        var infowindow = new google.maps.InfoWindow({
-          content: 'Crunch Gym'
+        markers[i]['infowindow'] = new google.maps.InfoWindow({
+            content: content
         });
 
+
+        // var infowindow = new google.maps.InfoWindow({
+        //   content: 'Crunch Gym'
+        // });
+
         markers[i].addListener('click', function() {
-          alert('yup');
+          this['infowindow'].open(map, this);
         })
       }
 
