@@ -1,4 +1,4 @@
-// FOR LINTING CHECK ONLY (inside sublime)
+// FOR LINTING (inside sublime) CHECK ONLY
 // var require = function(){};
 // var _ = {};
 
@@ -27,23 +27,18 @@ var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
 var API_KEY_Server = config.shServerKey1;
 
 function getValidCategoryListings(){
-
   var googleCommuteData = getGoogleCommuteData(inputData);
-  // console.log('googleCommuteData: ', googleCommuteData);
-
-  // // TODO: how to handle promises ?
-  // // these need to be executed at resolution of the above function call..
-  // // console.log(inputData);
-  // populateCommuteTimes(googleCommuteData, inputData);
-  // // console.log(inputData);
-  // removeListingsWithCommutesLongerThanMaxTime(inputData);
-
+  // can I move my promises chain
+  // TO HERE ??
+  // take them out of getGoogleCommuteData function ?
+  // TODO: move promises chain (see notes above)
 }
 
 //--------------------------------------
 
-// requests commute data between address1 and each of our supplied categoryListings
-//   and between address2 and each of our supplied categoryListings, from google API
+// requests googleAPI for commute data
+  // between address1 and each of our supplied categoryListings, and
+  // between address2 and each of our supplied categoryListings.
 function getGoogleCommuteData(inputData){
 
   axios.get(base_url, {
@@ -57,23 +52,16 @@ function getGoogleCommuteData(inputData){
 
   .then(function (response) {
     var googleCommuteData = response;
-    // console.log('Yea', googleCommuteData);
     return googleCommuteData.data;
   })
 
-  // // TODO: not sure how to handle promises to finish computing our data
   .then(function (googleCommuteData){
-    // console.log('before populateCommuteTimes', googleCommuteData);
     populateCommuteTimes(googleCommuteData, inputData);
-    // console.log('inputData after populateCommuteTimes', inputData);
-    // console.log(inputData);
     removeListingsWithCommutesLongerThanMaxTime(inputData);
-    console.log('after remove long commutes',inputData);
   })
 
   .catch(function (response) {
-    // TODO: check on what to do with this
-    // console.log('inputData', inputData, 'googleCommuteData', googleCommuteData);
+    // TODO: check on how to properly throw an error
     console.log('error catch in getGoogleCommuteData: ',response);
   });
 }
@@ -83,9 +71,6 @@ function populateCommuteTimes(googleCommuteData, inputData){
   console.log('populateCommuteTimes');
   _.each(inputData.categoryListings, function(categoryListing, listIndex){
 
-    // console.log('each', listIndex);
-    // console.log('each categoryListing', categoryListing);
-    // console.log('each googleCommuteData', googleCommuteData);
     // this is value in seconds.. divide by 60 to get minutes
     var commuteTime1 = googleCommuteData.rows[0].elements[listIndex].duration.value;
     var commuteTime2 = googleCommuteData.rows[1].elements[listIndex].duration.value;
@@ -93,21 +78,15 @@ function populateCommuteTimes(googleCommuteData, inputData){
     categoryListing.timeFromAddress1 = Math.round(commuteTime1/60);
     categoryListing.timeFromAddress2 = Math.round(commuteTime2/60);
   });
-  // console.log('inputData after PopulateCommuteTimes:', inputData);
-  // console.log('categoryListings after PopulateCommuteTimes:', inputData.categoryListings);
 }
 
 function removeListingsWithCommutesLongerThanMaxTime(inputData){
-  // return _.filter(inputData.categoryListings,
-  //                 areBothCommuteTimesLessThanMaxTime
-  //        );
+
   var filtered = _.filter(inputData.categoryListings,
                   areBothCommuteTimesLessThanMaxTime
          );
-  console.log(filtered);
-  // return filtered;
   inputData.categoryListings = filtered;
-  console.log(inputData);
+  return inputData;  // not necessary - it modifies the input object
 
   function areBothCommuteTimesLessThanMaxTime(categoryListing){
     var maxTime = inputData.maxTime;
@@ -159,6 +138,7 @@ function getDestinationsString(inputData){
 }
 
 module.exports = {
+
   getValidCategoryListings: getValidCategoryListings,
 
   getGoogleCommuteData: getGoogleCommuteData,
