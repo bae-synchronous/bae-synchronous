@@ -6,6 +6,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js'></script>
     <link rel="stylesheet" href="/main.css" media="screen" title="no title" charset="utf-8">
     <script src="app.js"></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -36,7 +37,7 @@
             <option value='15'>15 Minutes</option>
             <option value='20'>20 Minutes</option>
            </select>
-           <button class="formSubmitButton btn btn-primary" ng-click='postData()'>Submit</button>
+           <button id='submit' class="formSubmitButton btn btn-primary" ng-click='postData()'>Submit</button>
          </form>
        </div>
 
@@ -61,9 +62,41 @@
          </div>
        </div>
 
-       <div class="mapDiv col-sm-9" ng-if="submitted">
-         <div id="map"></div>
+       <div id='mapDiv' class="mapDiv col-sm-9" ng-if="submitted">
+         <!-- <div id="map"></div> -->
+         <script type="text/javascript">
+            var mapDiv = document.getElementById('mapDiv');
+            function createMap() {
+              var map = document.createElement('div');
+              map.setAttribute("id", "map");
+              // map.style.width = "500px";
+              // map.style.height = "500px";
+              mapDiv.appendChild(map);
+              initMap();
+            }
+
+            window.onload = function() {
+              console.log("ready");
+              var search_button = document.getElementById("submit");
+              console.log(search_button);
+              search_button.addEventListener("click", createMap);
+            }
+            var map;
+            function initMap() {
+              map = new google.maps.Map(document.getElementById('map'), {
+              center: {
+                lat: -34.397,
+                lng: 150.644
+              },
+              zoom: 8
+              });
+            }
+         </script>
        </div>
      </div>
+
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ&callback=initMap"
+         async defer></script>
+     <script src='mapDisplay.js'></script>
    </body>
   </html>

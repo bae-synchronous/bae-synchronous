@@ -1,5 +1,4 @@
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ&callback=initMap"
-    async defer></script>
+
 
 var map;
 var markers = [];
@@ -106,7 +105,7 @@ for (var i = 0; i < categories.length; i++) {
   console.log('markers[i]', markers[i]);
   var content = '<div>' + name + categories[i].name + categories[i].timeFromAddress1 + '</div>' ;
 
-  markers[i]['infowindow'] = new google.maps.InfoWindow({
+  markers[i].infowindow = new google.maps.InfoWindow({
       content: content
   });
 
@@ -116,8 +115,8 @@ for (var i = 0; i < categories.length; i++) {
   // });
 
   markers[i].addListener('click', function() {
-    this['infowindow'].open(map, this);
-  })
+    this.infowindow.open(map, this);
+  });
 }
 
   marker3.addListener('click', function() {

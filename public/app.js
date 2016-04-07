@@ -32,10 +32,28 @@ angular.module('bae-synchronous', [])
   };
 })
 
+// .factory('DisplayMap', function() {
+//   var map;
+//   function initMap() {
+//       var myLatLng1 = {lat: -34.397, lng: 150.644};
+//       var myLatLng2 = {lat: -34.597, lng: 150.644};
+//       map = new google.maps.Map(document.getElementById('map'), {
+//         center: {lat: -34.397, lng: 150.644},
+//         zoom: 8
+//       });
+//    }
+//    return {
+//      map: map,
+//      initMap: initMap
+//    };
+// })
+
 .controller('MainController', function ($scope, Map) {
     $scope.submitted = false;
     $scope.listings = {};
     $scope.categoryListings = {};
+    // $scope.map = DisplayMap.map;
+    // $scope.initMap = DisplayMap.initMap();
     //function to be called on the form being submitted
     $scope.postData = function() {
       //pass in the model data into the Map factory
