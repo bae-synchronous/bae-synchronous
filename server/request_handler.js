@@ -7,9 +7,10 @@ function requestHandler(req,res){
   var category = req.body.category;
   var duration = req.body.duration;
 
-  coordinates.getPlacesForAddresses(address1, address2, duration, category)
-    .then(function(places) {
-      res.send(places);
+  coordinates.getPlacesFromThirdPoint(address1, address2, category,duration)
+    .then(function(response) {
+        console.log('final response');
+        res.send(response);
     });
 }
 

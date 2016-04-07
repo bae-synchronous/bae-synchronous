@@ -87,8 +87,6 @@
           ]
       };
 
-
-
       var map;
       function initMap() {
         var myLatLng1 = {lat: -34.397, lng: 150.644};
@@ -123,7 +121,7 @@
           map: map
         });
         console.log('markers[i]', markers[i]);
-        var content = '<div>' + name + categories[i].name + '</div>';
+        var content = '<div>' + name + categories[i].name + categories[i].timeFromAddress1 + '</div>' ;
 
         markers[i]['infowindow'] = new google.maps.InfoWindow({
             content: content

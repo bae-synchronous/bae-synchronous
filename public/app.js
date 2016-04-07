@@ -45,8 +45,8 @@ angular.module('bae-synchronous', [])
         if (err) {
           console.log('error message',err);
         } else {
-          console.log("Recieved data from server", JSON.parse(JSON.parse(data)));
-          $scope.listings = JSON.parse(JSON.parse(data));
+          console.log("Recieved data from server", data);
+          $scope.listings = data;
           $scope.categoryListings = $scope.listings.categoryListings;
         }
       });
