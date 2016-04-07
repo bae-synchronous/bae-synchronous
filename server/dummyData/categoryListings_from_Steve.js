@@ -74,4 +74,6 @@ var categoryListings_from_Steve = {
     ]
 };
 
-module.exports = categoryListings_from_Steve;
+module.exports = {
+    categoryListings_from_Steve: categoryListings_from_Steve
+}
