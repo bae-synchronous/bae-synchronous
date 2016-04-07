@@ -3,21 +3,30 @@ var require = function(){};
 var _ = {};
 
 var axios  = require('axios');
-var config = require('config');
+var config = require('./config');
 
-var inputData =          require('dummyData/categoryListings_from_Steve');
-var googleCommuteTimes = require('dummyData/googleCommuteTimeData');
+// I get dataForClient from steve.
+// He gives me an object with structure that the client expects to receive back
+// I fill in fields for "commuteFromAddress1" and "commuteFromAddress2"
+// then filter out category listings that don't meet our maxTime requirements
+// at this point the dataForClient object is ready to return to the client
+
+// test data
+var inputData =         require('./dummyData/categoryListings_from_Steve');
+// var googleCommuteData = require('./dummyData/googleCommuteTimeData');
 
 // GoogleMapsDistanceMatrixAPI_base uri
 var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
 // var API_KEY  = config.shAPIkey_googleDistanceMatrixAPI;
 var API_KEY_Server = config.shServerKey1;
 
-getCategoryDurations(inputData);
+getGoogleCommuteData(inputData);
 
 //--------------------------------------
 
-function getCategoryDurations(inputData){
+// requests commute data between address1 and each of our supplied categoryListings
+//   and between address2 and each of our supplied categoryListings, from google API
+function getGoogleCommuteData(inputData){
 
   axios.get(base_url, {
     params: {
@@ -27,23 +36,32 @@ function getCategoryDurations(inputData){
       key:          API_KEY_Server
     }
   })
+
   .then(function (response) {
     var googleCommuteData = response;
-    console.log('Yea', googleCommuteTimes);
+    console.log('Yea', googleCommuteData);
     return googleCommuteData;
-  }).then(function (response){
-    populateCommuteTimes(googleCommuteData, inputData);
-    removeListingsWithLongCommutes(inputData);
   })
+
+  // TODO: not sure how to handle promises to finish computing our data
+  .then(function (googleCommuteData){
+    populateCommuteTimes(googleCommuteData, inputData);
+    // console.log(inputData);
+    removeListingsWithLongCommutes(inputData);
+    // console.log(inputData);
+  })
+
   .catch(function (response) {
-    console.log('error catch, commute times',response);
+    // TODO: check on what to do with this
+    console.log('error catch, getGoogleCommuteData',response);
   });
 }
 
-  // populate our inputData with the commute times we received back from this query
+// populate our inputData with the commute times we received back from this query
 function populateCommuteTimes(googleCommuteData, inputData){
   _.each(inputData.categoryListings, function(categoryListing, listIndex){
-    // this is value in seconds, must divide by 60 to get minutes
+
+    // this is value in seconds.. divide by 60 to get minutes
     var commuteTime1 = googleCommuteData.rows[0].elements[listIndex].duration.value;
     var commuteTime2 = googleCommuteData.rows[1].elements[listIndex].duration.value;
 
@@ -54,18 +72,20 @@ function populateCommuteTimes(googleCommuteData, inputData){
 
 function removeListingsWithLongCommutes(inputData){
   return _.filter(inputData.categoryListings,
-                  areBothCommuteTimesLessUnderMaxTime);
+                  areBothCommuteTimesLessThanMaxTime
+         );
+  function areBothCommuteTimesLessThanMaxTime(categoryListing){
+    var maxTime = inputData.maxTime;
+    var time1 = categoryListing.timeFromAddress1;
+    var time2 = categoryListing.timeFromAddress2;
+    return ( (time1 <= maxTime) && (time2 <= maxTime) );
+  }
 }
 
-function areBothCommuteTimesLessUnderMaxTime(categoryListing){
-  var maxTime = inputData.maxTime;
-  var time1 = categoryListing.timeFromAddress1;
-  var time2 = categoryListing.timeFromAddress2;
-  return !!((time1 <= maxTime) && (time2 <= maxTime));
-}
 
 //--------------------------------------
 
+// assemble string used for origins parameter of google Distance Matrix API call
 function getOriginsString(inputData){
 
   return inputData.address1.coordinates.lat + ',' +
@@ -73,6 +93,7 @@ function getOriginsString(inputData){
          inputData.address2.coordinates.lat + ',' +
          inputData.address2.coordinates.lng;
 
+        // if it becomes useful to query using a single address,
         // could pass in a flag to tell this func to create a Origins String using:
           // - both address1 and address2
           // - only address1
@@ -80,6 +101,7 @@ function getOriginsString(inputData){
         // create string for 2 origin addresses
 }
 
+// assemble string used for destinations parameter of google Distance Matrix API call
 function getDestinationsString(inputData){
    var destinations = '';
 
@@ -97,32 +119,41 @@ function getDestinationsString(inputData){
   return destinations;
 }
 
-// for testing
-// function getBrowserQueryString(){
-//   var space = '%2C';
-//   var pipe  = '%7C';
+module.exports = {
+  getGoogleCommuteData: getGoogleCommuteData,
+  populateCommuteTimes: populateCommuteTimes,
+  removeListingsWithLongCommutes: removeListingsWithLongCommutes,
 
-//   // query string for a single  origin address
-//   // var queryString_1addr = '' + '?' + 'units=imperial' +
-//   //                         '&' + 'origins=' + inputData.address1.coordinates.lat +
-//   //                               ','        + inputData.address1.coordinates.lng +
-//   //                         '&' + 'destinations=' + destinations +
-//   //                         '&' + 'key=' + API_KEY;
+  getOriginsString: getOriginsString,
+  getDestinationsString: getDestinationsString
+};
 
-//   // var google_req1 = base_url + queryString_1addr;
+// for testing Google Query in Browser
+  // function getBrowserQueryString(){
+  //   var space = '%2C';
+  //   var pipe  = '%7C';
 
-//   // query string with both source addresses
-//   var queryString_2addr = '' + '?' + 'units=imperial' +
-//                           '&' + 'origins=' + inputData.address1.coordinates.lat +
-//                                 ','        + inputData.address1.coordinates.lng +
-//                                  pipe      + inputData.address2.coordinates.lat +
-//                                 ','        + inputData.address2.coordinates.lng +
-//                           '&' + 'destinations=' + destinations +
-//                           '&' + 'key=' + API_KEY;
+  //   // query string for a single  origin address
+  //   // var queryString_1addr = '' + '?' + 'units=imperial' +
+  //   //                         '&' + 'origins=' + inputData.address1.coordinates.lat +
+  //   //                               ','        + inputData.address1.coordinates.lng +
+  //   //                         '&' + 'destinations=' + destinations +
+  //   //                         '&' + 'key=' + API_KEY;
 
-//   //var google_req2 = base_url + queryString_2addr;
-//   //var google_commute_times_from_2_origin_addresses = base_url + queryString_2addr;
-//   //console.log(google_req2);
+  //   // var google_req1 = base_url + queryString_1addr;
 
-//   return queryString_2addr;
-// }
+  //   // query string with both source addresses
+  //   var queryString_2addr = '' + '?' + 'units=imperial' +
+  //                           '&' + 'origins=' + inputData.address1.coordinates.lat +
+  //                                 ','        + inputData.address1.coordinates.lng +
+  //                                  pipe      + inputData.address2.coordinates.lat +
+  //                                 ','        + inputData.address2.coordinates.lng +
+  //                           '&' + 'destinations=' + destinations +
+  //                           '&' + 'key=' + API_KEY;
+
+  //   //var google_req2 = base_url + queryString_2addr;
+  //   //var google_commute_times_from_2_origin_addresses = base_url + queryString_2addr;
+  //   //console.log(google_req2);
+
+  //   return queryString_2addr;
+  // }
