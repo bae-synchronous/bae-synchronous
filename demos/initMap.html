@@ -121,11 +121,13 @@
           map: map
         });
         console.log('markers[i]', markers[i]);
-<<<<<<< HEAD
+
         var content = '<div>' + name + categories[i].name + categories[i].timeFromAddress1 + '</div>' ;
-=======
+
         var content = '<div>' + name + categories[i].name + address + categories[i].address + '</div>';
->>>>>>> map changes
+
+        var content = '<div>' + name + categories[i].name + address + categories[i].address + '</div>';
+
 
         markers[i]['infowindow'] = new google.maps.InfoWindow({
             content: content
