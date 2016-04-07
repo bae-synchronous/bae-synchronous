@@ -111,8 +111,8 @@ function removeListingsWithCommutesLongerThanMaxTime(inputData){
 
   function areBothCommuteTimesLessThanMaxTime(categoryListing){
     var maxTime = inputData.maxTime;
-// testing
-maxTime = 2;// testing
+    // // testing
+    // maxTime = 2;// testing
     var time1 = categoryListing.timeFromAddress1;
     var time2 = categoryListing.timeFromAddress2;
     console.log(maxTime, time1, time2);
