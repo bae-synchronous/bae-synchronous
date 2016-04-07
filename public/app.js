@@ -4,12 +4,12 @@ var testGlobal;
 
 angular.module('bae-synchronous', [])
 
-.factory('Map', function($http, $q) {
+.factory('Map', function($http) {
   function getData() {
     //returns data from the root directory
     return $http({
       method: '/GET',
-      url: $q,
+      url: '/',
     });
   }
   //address1, 2, category, and duration are passed in through the models from index.html
