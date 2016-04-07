@@ -16,13 +16,14 @@ app.post('/', function(req, res) {
 app.post('/places', function(req, res) {
     console.log('request made to /places');
     requestHandler(req, res);
-      // dummyData = JSON.stringify(dummyData)  
+      // dummyData = JSON.stringify(dummyData)
       // res.send(dummyData);
+  // requestHandler(req, res);
+  dummyData = JSON.stringify(dummyData);
+  res.send(dummyData);
+
 });
 
 app.listen(app.get('port'), function () {
     console.log('bae-synchronous is running on port ', app.get('port'));
 });
-
-// var test = require('./server/validCategoryListings');
-// test.getValidCategoryListings();
