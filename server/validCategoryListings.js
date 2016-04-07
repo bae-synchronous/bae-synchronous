@@ -1,168 +1,128 @@
-// will probably rename this to validCategoryList.js from sheryl.js
-var axios = require('axios');
+// FOR LINTING CHECK ONLY
+var require = function(){};
+var _ = {};
+
+var axios  = require('axios');
 var config = require('config');
 
-var inputData = require('dummyData/categoryListings_from_Steve');
+var inputData =          require('dummyData/categoryListings_from_Steve');
 var googleCommuteTimes = require('dummyData/googleCommuteTimeData');
-
-
-function requestHandler(req,res){
-  module.exports = {
-  requestHandler: requestHandler,
-  };
-}
 
 // GoogleMapsDistanceMatrixAPI_base uri
 var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
 // var API_KEY  = config.shAPIkey_googleDistanceMatrixAPI;
-var API_KEY = config.shServerKey1;
+var API_KEY_Server = config.shServerKey1;
 
-function addCategoryDurations(inputData){
-  // var addressPropertyName = 'address' + originNumber;
-  // ie 'address1', or 'address2'
-  // won't need if query both addresses at once.
+getCategoryDurations(inputData);
 
-  // build destination section of query parameter
-  var destinations = '';
-  var space = '%2C';
-  var pipe  = '%7C';
+//--------------------------------------
+
+function getCategoryDurations(inputData){
+
+  axios.get(base_url, {
+    params: {
+      units:        'imperial',
+      origins:      getOriginsString(inputData),
+      destinations: getDestinationsString(inputData),
+      key:          API_KEY_Server
+    }
+  })
+  .then(function (response) {
+    var googleCommuteData = response;
+    console.log('Yea', googleCommuteTimes);
+    return googleCommuteData;
+  }).then(function (response){
+    populateCommuteTimes(googleCommuteData, inputData);
+    removeListingsWithLongCommutes(inputData);
+  })
+  .catch(function (response) {
+    console.log('error catch, commute times',response);
+  });
+}
+
+  // populate our inputData with the commute times we received back from this query
+function populateCommuteTimes(googleCommuteData, inputData){
+  _.each(inputData.categoryListings, function(categoryListing, listIndex){
+    // this is value in seconds, must divide by 60 to get minutes
+    var commuteTime1 = googleCommuteData.rows[0].elements[listIndex].duration.value;
+    var commuteTime2 = googleCommuteData.rows[1].elements[listIndex].duration.value;
+
+    categoryListing.timeFromAddress1 = Math.round(commuteTime1/60);
+    categoryListing.timeFromAddress2 = Math.round(commuteTime2/60);
+  });
+}
+
+function removeListingsWithLongCommutes(inputData){
+  return _.filter(inputData.categoryListings,
+                  areBothCommuteTimesLessUnderMaxTime);
+}
+
+function areBothCommuteTimesLessUnderMaxTime(categoryListing){
+  var maxTime = inputData.maxTime;
+  var time1 = categoryListing.timeFromAddress1;
+  var time2 = categoryListing.timeFromAddress2;
+  return !!((time1 <= maxTime) && (time2 <= maxTime));
+}
+
+//--------------------------------------
+
+function getOriginsString(inputData){
+
+  return inputData.address1.coordinates.lat + ',' +
+         inputData.address1.coordinates.lng + '|' +
+         inputData.address2.coordinates.lat + ',' +
+         inputData.address2.coordinates.lng;
+
+        // could pass in a flag to tell this func to create a Origins String using:
+          // - both address1 and address2
+          // - only address1
+          // - only address2
+        // create string for 2 origin addresses
+}
+
+function getDestinationsString(inputData){
+   var destinations = '';
+
+  // use these values for a Server Query
+  var space = ' ';          // for browser query, use space = '%2C';
+  var pipe  = '|';          // for browser query, use pipe  = '%7C';
 
   _.each(inputData.categoryListings, function(categoryListing){
     destinations += categoryListing.coordinates.lat + space +
                     categoryListing.coordinates.lng + pipe;
-  })
+  });
+  // remove pipe from last destination
+  destinations = destinations.slice(0, -1);
 
-    // AXIOS EXAMPLE for building query
-      // axios.get(base_url,
-      //           params: {
-      //             key = API_KEY,
-      //             units = imperial
-      //             origins = { address1.coordinates.lat,
-      //                         address1.coordinates.lng
-      //                       }
-      //             destinations = destinations;
-      //           })
-      //           .then(function (response) {
-      //             var places = response.data.results;
-      //             console.log('places',places);
-      //             return places;
-      //           })
-      //           .catch(function (response) {
-      //             console.log(response);
-      //           });
-
-  // can actually pass in both origin addresses. Next round
-  // address1 is Hard Coded in below.
-    // will either need to make two calls, or
-    // query for both address1 and address2 in one call
-    // Starting with a single address..
-
-  // query string for a single  origin address
-  var queryString_1addr = '' + '?' + 'units=imperial' +
-                          '&' + 'origins=' + inputData.address1.coordinates.lat +
-                                ','        + inputData.address1.coordinates.lng +
-                          '&' + 'destinations=' + destinations +
-                          '&' + 'key=' + API_KEY;
-
-  var google_req1 = base_url + queryString_1addr;
-
-  // query string with both source addresses
-  var queryString_2addr = '' + '?' + 'units=imperial' +
-                          '&' + 'origins=' + inputData.address1.coordinates.lat +
-                                ','        + inputData.address1.coordinates.lng +
-                                 pipe      + inputData.address2.coordinates.lat +
-                                ','        + inputData.address2.coordinates.lng +
-                          '&' + 'destinations=' + destinations +
-                          '&' + 'key=' + API_KEY;
-
-  //var google_req2 = base_url + queryString_2addr;
-  //var google_commute_times_from_2_origin_addresses = base_url + queryString_2addr;
-  //console.log(google_req2);
-
-  var googleCommuteTimeData_from_single_originAddress = {
-
-  };
-
-  // convenience variable
-  var commuteTime_data = googleCommuteTimeData_from_single_originAddress;
-
-  // populate our inputData with the commute times we received back from this query
-
+  return destinations;
 }
 
+// for testing
+// function getBrowserQueryString(){
+//   var space = '%2C';
+//   var pipe  = '%7C';
 
+//   // query string for a single  origin address
+//   // var queryString_1addr = '' + '?' + 'units=imperial' +
+//   //                         '&' + 'origins=' + inputData.address1.coordinates.lat +
+//   //                               ','        + inputData.address1.coordinates.lng +
+//   //                         '&' + 'destinations=' + destinations +
+//   //                         '&' + 'key=' + API_KEY;
 
+//   // var google_req1 = base_url + queryString_1addr;
 
-/*
-  Function: takes in (array of categoryLocations, address).
-  Returns (array of {address, categoryAddress, duration})
-  where travelTime represents the time from address to that categoryAddress.
-*/
+//   // query string with both source addresses
+//   var queryString_2addr = '' + '?' + 'units=imperial' +
+//                           '&' + 'origins=' + inputData.address1.coordinates.lat +
+//                                 ','        + inputData.address1.coordinates.lng +
+//                                  pipe      + inputData.address2.coordinates.lat +
+//                                 ','        + inputData.address2.coordinates.lng +
+//                           '&' + 'destinations=' + destinations +
+//                           '&' + 'key=' + API_KEY;
 
-// first add fields to categoryObjects:
-  // categoryAddress: (use Google API to get addressFromCoordinates)
+//   //var google_req2 = base_url + queryString_2addr;
+//   //var google_commute_times_from_2_origin_addresses = base_url + queryString_2addr;
+//   //console.log(google_req2);
 
-
-
-// function:
-  // now add addressField to arrayOfCategories
-    // and populate it
-  // maybe: add property fields, initialized to null
-    // address1
-    // address2
-    // durationAddress1
-    // durationAddress2
-
-
-// function getDurations(originAddress, originNumber, categoryObjects){
-  // originNumber will be either '1', or '2' - enables DRY function
-    // append to "address" and "durationToAddress"
-    // so that we can add correct field names to our object.
-
-  // takes a list of objects with the following fields:
-    // address(string), latlong,
-    // originPropertyName will either be "address1", or "address2"
-      // a string representing whether these durations ought to be stored
-      //  in info pertaining to the object's addr1 field, or addr2 field
-
-  // loop through each object in categoryAddressesArray
-  // pull out the coordinates or address field (either is fine)
-      // unclear if address field of categoryObjects will have a value
-      // I believe the latlong coordinates fields will be.
-      // at some point, ought to add the physical address fields,
-        // if it's not already provided.
-      // call Google __ API on (originAddress, categoryObjectCoordinates/Address)
-      // pull duration field from the returned object
-      // add this information (and possibly text address if avail)
-        // to the categoryObject, creating "duration" field
-        //  on this object.
-        // add originAddress to this Object as well
-        // (we may want to display )
+//   return queryString_2addr;
 // }
-
-
-// server.categoryListingObject.js
-// details the correct, current format for the categoryObjects
-// CONTRACT: for the full object that we return to client is
-// example at: server/dummyData/data_we_return_to_client
-
-/* Object returned to Client will ultimately look KINDA like
-// (see above for disclaimer):
-
-  categoryAddress:
-  categoryLatLong: {lat: , long: },
-  durationToAddress1:
-  durationToAddress2:
-  // optional:
-  locationName (string ie, "24 Hour Fitness")
-  yelpRating:
-  // if the following items will be needed
-    // those fields should be populated in
-    // getDurations function
-  originAddress1:
-  originAddress2:
-
-  // so pins can be displayed on map
-  originLatLong1:
-  originLatLong2:
-*/
