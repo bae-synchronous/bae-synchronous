@@ -22,31 +22,74 @@
       var markers = [];
       var contents = [];
       //dummy object used to test to see if the for loop worked.
-      var data = [
-        {
-          name: 'Crunch',
-          latitude: -34.397,
-          longitude: 150.644,
-          description: {
-            content: 'Crunch Gym',
-            reviews: 'this place is the shit',
-            distanceFromHome: 10,
-            distanceFromWork: 5
+      var data_we_return_to_client = {
+          address1: {
+              address: '50 Murray Street, Pyrmont',
+              coordinates: { lat: -33.870353, lng: 151.197892 }
           },
-        },
-        {
-          name: 'Crunch',
-          latitude: -39.397,
-          longitude: 150.644,
-          description: {
-            content: 'Crunch Gym',
-            reviews: 'this place is the shit',
-            distanceFromHome: 10,
-            distanceFromWork: 5
-          }
-        }
-      ];
+          address2: {
+              address: '37 Pyrmont Street, Pyrmont',
+              coordinates: { lat: -33.8976109, lng: 151.1937712 }
+          },
+          thirdPoint: {
+              address: '',
+              coordinates: { lat: -33.868981950000006, lng: 151.1958316 }
+          },
+          category: 'gym',
+          radius: 500,
+          maxTime: 30,
+          categoryListings: [
+              {
+                  name: 'ibis Sydney Darling Harbour',
+                  address: '70 Murray Street, Pyrmont',
+                  coordinates: { lat: -33.8712116, lng: 151.1979837 },
+                  timeFromAddress1: 5,
+                  timeFromAddress2: 12,
+                  place_id: 'ChIJFfyzTTeuEmsRuMxvFyNRfbk',
+                  rating: 3,
+              },
+              {
+                  name: 'Novotel Sydney on Darling Harbour',
+                  address: '100 Murray Street, Pyrmont',
+                  coordinates: { lat: -33.87229689999999, lng: 151.1979047 },
+                  timeFromAddress1: 22,
+                  timeFromAddress2: 2,
+                  place_id: 'ChIJzzIKkzCuEmsRivBgx7QS8t0',
+                  rating: 3.2,
+              },
+              {
+                  name: 'The Little Snail Restaurant',
+                  address: '50 Murray Street, Pyrmont',
+                  coordinates: { lat: -33.870353, lng: 151.197892 },
+                  timeFromAddress1: 5,
+                  timeFromAddress2: 3,
+                  place_id: 'ChIJtwapWjeuEmsRcxV5JARHpSk',
+                  rating: 4.1,
+              },
+              {
+                  name: 'Blue Eye Dragon',
+                  address: '37 Pyrmont Street, Pyrmont',
+                  coordinates: { lat: -33.8676109, lng: 151.1937712 },
+                  timeFromAddress1: 2,
+                  timeFromAddress2: 5,
+                  place_id: 'ChIJuZqIiTauEmsRJF_TK9Vpfmw',
+                  rating: 4.3,
+              },
+              {
+                  name: 'The Star',
+                  address: '80 Pyrmont Street, Pyrmont',
+                  coordinates: { lat: -33.8680013, lng: 151.195248 },
+                  timeFromAddress1: 5,
+                  timeFromAddress2: 2,
+                  place_id: 'ChIJq6qq6jauEmsRJAf7FjrKnXI',
+                  rating: 3.8,
+              }
+          ]
+      };
 
+
+
+      var map;
       function initMap() {
         var myLatLng1 = {lat: -34.397, lng: 150.644};
         var myLatLng2 = {lat: -34.597, lng: 150.644};
@@ -54,66 +97,56 @@
           center: {lat: -34.397, lng: 150.644},
           zoom: 8
         });
-        //cycles over the data obj and then extracts info as needed
-      for (var i = 0; i < data.length; i++) {
-        var position = new google.maps.LatLng(data[i].latitude, data[i].longitude);
-        markers[i] = new google.maps.Marker({
-          position: position,
+        var marker1 = new google.maps.Marker({
+          position: myLatLng1,
           map: map,
-          description: data[i].description,
-          id: i
+          title: 'Hello World!'
+        });
+        var marker2 = new google.maps.Marker({
+          position: myLatLng2,
+          map: map,
+          title: 'Hello World!'
+        });
+        var marker3 = new google.maps.Marker({
+          position: data_we_return_to_client.address1.coordinates,
+          map: map
+        });
+        var marker4 = new google.maps.Marker({
+          position: data_we_return_to_client.address2.coordinates,
+          map: map
+        });
+      var categories = data_we_return_to_client.categoryListings;
+      for (var i = 0; i < categories.length; i++) {
+        console.log(categories);
+        markers[i] = new google.maps.Marker({
+          position: categories[i].coordinates,
+          map: map
+        });
+        console.log('markers[i]', markers[i]);
+
+        var infowindow = new google.maps.InfoWindow({
+          content: 'Crunch Gym'
         });
 
-        //doesn't work
-        var infoWindow = new google.maps.InfoWindow({
-          content: markers[i].description.content,
-          reviews: markers[i].description.reviews,
-          distanceFromHome: markers[i].description.distanceFromHome,
-          distanceFromWork: markers[i].description.distanceFromWork
-        });
-
-        // var infoWindow = new google.maps.InfoWindow({
-        //   content: data[i].name
-        // });
-
-
-        //goes to the current marker, and then displays all of the info in the description.
-        google.maps.event.addListener(markers[i], 'click', function() {
-          infoWindow.open(map, markers[i]);
-          map.panTo(markers[i].getPosition());
-          console.log(markers[this.id].description);
-          for (var key in markers[this.id].description) {
-            alert(markers[this.id].description[key]);
-          }
-          // alert(markers[this.id].description);
-
-          // console.log(data[0].description.content)
-          console.log(markers[this.id].description);
+        markers[i].addListener('click', function() {
+          alert('yup');
         })
       }
 
 
-        // var marker1 = new google.maps.Marker({
-        //   position: myLatLng1,
-        //   map: map,
-        //   title: 'Hello World!'
-        // });
-        // var marker2 = new google.maps.Marker({
-        //   position: myLatLng2,
-        //   map: map,
-        //   title: 'Hello World!'
-        // });
 
+        marker3.addListener('click', function() {
+          infowindow.open(map, marker3);
+        });
 
-
-        // marker1.addListener('click', function() {
-        //   infowindow.open(map, marker1);
-        // });
       }
+
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ&callback=initMap"
     async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js'></script>
     <script src="app.js"></script>
   </body>
 </html>

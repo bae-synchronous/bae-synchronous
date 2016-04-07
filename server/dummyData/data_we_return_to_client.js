@@ -1,4 +1,6 @@
 // temp data, and format of contract
+
+//TODO display address1, and address 2 on map, also display everything in category listings
 var data_we_return_to_client = {
     address1: {
         address: '50 Murray Street, Pyrmont',
