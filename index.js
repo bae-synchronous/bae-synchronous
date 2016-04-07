@@ -18,10 +18,6 @@ app.post('/places', function(req, res) {
     // requestHandler(req, res);
       // dummyData = JSON.stringify(dummyData);
       res.send(dummyData);
-    // requestHandler(req, res);
-    // dummyData = JSON.stringify(dummyData);
-    // res.send(dummyData);
-
 });
 
 app.listen(app.get('port'), function () {

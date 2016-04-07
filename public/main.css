@@ -58,8 +58,7 @@ input {
 }
 
 .mapDiv {
-  padding: 15px;
-  background-color: white; /*(just so it's visible)*/
+  padding: 25px; 
 }
 
 .mainForm {
