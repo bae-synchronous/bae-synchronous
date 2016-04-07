@@ -27,7 +27,15 @@ var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
 var API_KEY_Server = config.shServerKey1;
 
 function getValidCategoryListings(){
+
+  // so can test that filter is working, change steve's supplied maxTime
+  inputData.maxTime = 2;
+  console.log('\n\ninputStevesData: (after I changed to maxTime = 2)\n\n', inputData, '\n');
+
   var googleCommuteData = getGoogleCommuteData(inputData);
+
+  console.log('\n finish \n');
+
   // can I move my promises chain
   // TO HERE ??
   // take them out of getGoogleCommuteData function ?
@@ -58,6 +66,9 @@ function getGoogleCommuteData(inputData){
   .then(function (googleCommuteData){
     populateCommuteTimes(googleCommuteData, inputData);
     removeListingsWithCommutesLongerThanMaxTime(inputData);
+
+    // Test Shows Filter Works
+    console.log('\n\ndataReturningToClient: \n', inputData, '\n');
   })
 
   .catch(function (response) {
@@ -68,7 +79,7 @@ function getGoogleCommuteData(inputData){
 
 // populate our inputData with the commute times we received back from this query
 function populateCommuteTimes(googleCommuteData, inputData){
-  console.log('populateCommuteTimes');
+
   _.each(inputData.categoryListings, function(categoryListing, listIndex){
 
     // this is value in seconds.. divide by 60 to get minutes
@@ -77,6 +88,7 @@ function populateCommuteTimes(googleCommuteData, inputData){
 
     categoryListing.timeFromAddress1 = Math.round(commuteTime1/60);
     categoryListing.timeFromAddress2 = Math.round(commuteTime2/60);
+
   });
 }
 
@@ -94,8 +106,7 @@ function removeListingsWithCommutesLongerThanMaxTime(inputData){
     // maxTime = 2;// testing
     var time1 = categoryListing.timeFromAddress1;
     var time2 = categoryListing.timeFromAddress2;
-    console.log(maxTime, time1, time2);
-    console.log(( (time1 <= maxTime) && (time2 <= maxTime) ));
+
     return ( (time1 <= maxTime) && (time2 <= maxTime) );
   }
 }
