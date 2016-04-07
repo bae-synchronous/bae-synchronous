@@ -15,12 +15,12 @@ app.post('/', function(req, res) {
 
 app.post('/places', function(req, res) {
     console.log('request made to /places');
-    requestHandler(req, res);
-      // dummyData = JSON.stringify(dummyData)
-      // res.send(dummyData);
-  // requestHandler(req, res);
-  dummyData = JSON.stringify(dummyData);
-  res.send(dummyData);
+    // requestHandler(req, res);
+      // dummyData = JSON.stringify(dummyData);
+      res.send(dummyData);
+    // requestHandler(req, res);
+    // dummyData = JSON.stringify(dummyData);
+    // res.send(dummyData);
 
 });
 

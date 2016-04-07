@@ -65,5 +65,5 @@ var data_we_return_to_client = {
         }
     ]
 };
-
+data_we_return_to_client = JSON.stringify(data_we_return_to_client);
 module.exports = data_we_return_to_client;
