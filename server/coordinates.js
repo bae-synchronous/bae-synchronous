@@ -99,12 +99,15 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
       // console.log('thirdPoint:',thirdPoint);
 
       getPlaces(thirdPoint, radius, category).then(function(places) {
-        console.log('1');
+        console.log('getPlaces worked... number of places = ', places.length);
           addCommuteTimes(places).then(function(places){
-            console.log('2');
+            console.log('addCommuteTimes worked');
             response.categoryListings = places;
             resolve(response);
-          });
+
+          }).catch(function(error){
+            console.log('error',error)
+          })          
       });
     });
   });
@@ -133,27 +136,19 @@ function getCommuteTime(origins,destinations){
     });
 }
 
-function createDestinationsString(places){
-  return places.map(function(place){
-    return helper.stringifyCoordinates(place.geometry.location);
-  }).join('|');
-}
-
-function createOriginsString(address1,address2){
-  return helper.stringifyCoordinates(address1) + '|' + helper.stringifyCoordinates(address2);
-}
 
 function extendPlacesObject(places){
-  var origins = createOriginsString(dummy.address1.coordinates, dummy.address2.coordinates);
-  var destinations = createDestinationsString(places);
-
+  var origins = helper.createOriginsString(dummy.address1.coordinates, dummy.address2.coordinates);      
+  var destinations = helper.createDestinationsString(places);
+  
   return getCommuteTime(origins,destinations).then(function(commutes){
-    extendPlaceObject(places,commutes);
+    addCommuteTimesToListing(places,commutes);
     return places;
   });
 }
 
-function extendPlaceObject(places,commutes){
+
+function addCommuteTimesToListing(places,commutes){
 
   _.each(places,function(place,idx){
     var commuteProps = {
@@ -167,13 +162,13 @@ function extendPlaceObject(places,commutes){
 }
 
 function addCommuteTimes(places){
-  var destinations = createDestinationsString(places);
-  var origins = createOriginsString(dummy.address1.coordinates, dummy.address2.coordinates);
-
+  var destinations = helper.createDestinationsString(places);
+  var origins = helper.createOriginsString(dummy.address1.coordinates, dummy.address2.coordinates);      
+  
   return getCommuteTime(origins,destinations).then(function(commutes){
-    extendPlaceObject(places,commutes);
-    return places;
-  });
+    addCommuteTimesToListing(places,commutes);
+    return places; 
+  }); 
 }
 
 module.exports = {
