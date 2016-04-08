@@ -21,7 +21,6 @@ function createDestinationsString(places){
   }).join('|'); 
 }
 
-
 function filterByMaxTime(categoryListings,maxTime){
   return _.filter(categoryListings, function(place){
     return place.timeFromAddress1 <= maxTime && place.timeFromAddress2 <= maxTime;
@@ -65,6 +64,14 @@ function constructResponseObj(req){
     };
 }
 
+function formatResponse(response){
+  _.each(response.categoryListings,function(place){
+    place.address = place.vicinity;
+    place.coordinates = place.geometry.location;
+  });
+  return response;
+}
+
 var Log = (function(){
   return {
     commutesStatus: function(){
@@ -78,14 +85,6 @@ var Log = (function(){
     }
   };
 })();
-
-function formatResponse(response){
-  _.each(response.categoryListings,function(place){
-    place.address = place.vicinity;
-    place.coordinates = place.geometry.location;
-  });
-  return response;
-}
 
 module.exports = {
   replaceEmptySpaces: replaceEmptySpaces,

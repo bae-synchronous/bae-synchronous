@@ -52,14 +52,14 @@ function getCoordinatesForEachAddress(address1,address2){
     return axios.all(promises)
       .then(axios.spread(function (coordinatesObj1, coordinatesObj2) {
         log.coordinatesStatus();
-        var thirdPoint = getThirdPoint(coordinatesObj1,coordinatesObj2)
+        var thirdPoint = getThirdPoint(coordinatesObj1,coordinatesObj2);
         return {
           thirdPoint: thirdPoint,
           coordinatesObj1: coordinatesObj1,
           coordinatesObj2: coordinatesObj2
         };
       }));
-};
+}
 
 // requests a list of "places" using a geographic coodinates, a type ('gym'), and radius
 // and a type (e.g. "gym") within a radius (measured in meters)
@@ -134,12 +134,9 @@ function makeAPICalls(request) {
 
       getPlaces(thirdPoint, response.radius, response.category).then(function(places) {
           addCommuteTimesToListings(response.address1,response.address2,places)
-          .then(function(places){    
-            
+          .then(function(places){
             response.categoryListings = helper.filterByMaxTime(places,response.maxTime);        
             response = helper.formatResponse(response);
-
-            console.log(response.categoryListings)
             resolve(response);
 
           }).catch(function(error){

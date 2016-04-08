@@ -5,7 +5,7 @@ function requestHandler(req,res){
 
   coordinates.makeAPICalls(req)
     .then(function(response) {
-        console.log('API calls went through!');
+        console.log('All API calls were successful. Sending response to client!');
         res.send(response);
     });
 }
