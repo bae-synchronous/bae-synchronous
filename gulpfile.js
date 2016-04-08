@@ -11,7 +11,7 @@ gulp.task('lint', function() {
     './public/**/.js',
     './public/*.js',
     './server/*.js',
-    './test/*.js'
+    './specs/*.js'
   ])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
@@ -31,10 +31,9 @@ gulp.task('develop', function () {
 });
 
 gulp.task('test', function () {
-  gulp.src('test/**.js')
+  gulp.src('specs/**.js')
     .pipe(mocha({
       clearRequireCache: true,
-      ignoreLeaks: true
   }));
 });
 

@@ -9,8 +9,8 @@ app.set('port', (process.env.PORT || 8000));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.post('/', function(req, res) {
-
+app.get('/', function(req, res) {
+  //res.send(dummyData);
 });
 
 app.post('/places', function(req, res) {
@@ -20,6 +20,9 @@ app.post('/places', function(req, res) {
       res.send(dummyData);
 });
 
-app.listen(app.get('port'), function () {
-    console.log('bae-synchronous is running on port ', app.get('port'));
+var server = app.listen(app.get('port'), function () {
+  var port = server.address().port;
+    console.log('bae-synchronous is running on port ', port);
 });
+
+module.exports = server;

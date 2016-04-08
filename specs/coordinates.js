@@ -12,7 +12,7 @@ describe('Helper Functions:', function() {
 
   describe('#replaceEmptySpaces()', function() {
     it("should replace empty spaces with '+'", function() {
-        var address_string = dummy.address1.address;
+        var address_string = dummy.address1.address,
         converted_address_string = helper.replaceEmptySpaces(address_string),
         expected_address_string = '50+Murray+Street,+Pyrmont';
         expect(converted_address_string).to.equal(expected_address_string);
@@ -32,8 +32,8 @@ describe('Third Point Formulas:', function() {
     it("returns a third point (currently implements midpoint formula)", function() {
       var coordinates1 = dummy.address1.coordinates;
       var coordinates2 = dummy.address2.coordinates;
-      console.log(coordinates1,coordinates2,calculateThirdPoint)
-      var calculateThirdPoint = thirdPoint.getThirdPoint(coordinates1,coordinates2)
+      console.log(coordinates1,coordinates2,calculateThirdPoint);
+      var calculateThirdPoint = thirdPoint.getThirdPoint(coordinates1,coordinates2);
       expect(calculateThirdPoint).to.equal(dummy.thirdPoint.coordinates);
     });
   });
@@ -79,4 +79,3 @@ describe('Google API Calls:', function() {
     });
   });
 });
-
