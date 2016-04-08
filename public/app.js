@@ -52,6 +52,7 @@ angular.module('bae-synchronous', [])
     $scope.submitted = false;
     $scope.listings = {};
     $scope.categoryListings = {};
+    $scope.markers = [];
     // $scope.map = DisplayMap.map;
     // $scope.initMap = DisplayMap.initMap();
     //function to be called on the form being submitted
@@ -59,17 +60,43 @@ angular.module('bae-synchronous', [])
       //pass in the model data into the Map factory
       $scope.submitted = true;
       Map.postData($scope.homeAddress, $scope.workAddress, $scope.selectedPlace, $scope.time)
-      .then(function(data,err) {
+      .then(function(data, err) {
         if (err) {
           console.log('error message',err);
         } else {
           console.log("Recieved data from server", data);
           $scope.listings = data;
-          $scope.categoryListings = $scope.listings.categoryListings;
-        }
-      });
-    };
+          $scope.categoryListings = data.categoryListings;
+          console.log('category', data.categoryListings);
+          var marker3 = new google.maps.Marker({
+            position: $scope.listings.address1.coordinates,
+            map: map
+          });
+          var marker4 = new google.maps.Marker({
+            position: $scope.listings.address2.coordinates,
+            map: map
+          });
+          console.log('b4 loop', $scope.categoryListings);
+          for (var i = 0; i < data.categoryListings.length; i++) {
+          console.log('in loop', data.categoryListings, $scope.markers, i);
+          $scope.markers[i] = new google.maps.Marker({
+            position: data.categoryListings[i].coordinates,
+            map: map
+          });
+          console.log('markers[i]', $scope.markers[i]);
+          var content = '<div>' + name + $scope.categoryListings[i].name + $scope.categoryListings[i].timeFromAddress1 + '</div>' ;
 
+          $scope.markers[i].infowindow = new google.maps.InfoWindow({
+              content: content
+          });
+
+          $scope.markers[i].addListener('click', function() {
+            this.infowindow.open(map, this);
+          });
+        }
+      }
+    });
+  };
 
     //there must be a more efficent way of doing this......
     $scope.places = {
