@@ -58,7 +58,8 @@ input {
 }
 
 .mapDiv {
-  padding: 25px; 
+  height: auto;
+  padding: 15px;
 }
 
 .mainForm {
@@ -67,7 +68,7 @@ input {
 
 #map {
   width: 100%;
-  height: 500px;
+  height: 715px;
 }
 
 .categoryListing div {
