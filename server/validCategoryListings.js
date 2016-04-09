@@ -26,20 +26,37 @@ var inputData = startingData.categoryListings_from_Steve;
 var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
 var API_KEY_Server = config.shServerKey1;
 
-function getValidCategoryListings(){
+// sample call from outside this file
+// getValidCategoryListings(inputData, function functionThatNeedsMyData(inputData){
+//     console.log('\n\ndata Returning To Client: \n', inputData, '\n');
+// });
+
+// function functionThatNeedsMyData(inputData){
+//   console.log('--returned data---', inputData);
+// }
+
+function getValidCategoryListings(inputData, functionThatNeedsMyData){
+  // this could/should be changed to return a promise,
+  // instead of accepting a callback
+
 
   // so can test that filter is working, change steve's supplied maxTime
   inputData.maxTime = 2;
   console.log('\n\ninputStevesData: (after I changed to maxTime = 2)\n\n', inputData, '\n');
 
-  var googleCommuteData = getGoogleCommuteData(inputData);
 
-  console.log('\n finish \n');
+  // moved my promises chain TO HERE
+  // taking it out of getGoogleCommuteData function
 
-  // can I move my promises chain
-  // TO HERE ??
-  // take them out of getGoogleCommuteData function ?
-  // TODO: move promises chain (see notes above)
+  // var googleCommuteData = getGoogleCommuteData(inputData);
+   getGoogleCommuteData(inputData)
+   .then(function (googleCommuteData){
+    populateCommuteTimes(googleCommuteData, inputData);
+    removeListingsWithCommutesLongerThanMaxTime(inputData);
+    functionThatNeedsMyData(inputData);
+    console.log('\n finish \n');
+  });
+
 }
 
 //--------------------------------------
@@ -49,7 +66,7 @@ function getValidCategoryListings(){
   // between address2 and each of our supplied categoryListings.
 function getGoogleCommuteData(inputData){
 
-  axios.get(base_url, {
+  return axios.get(base_url, {
     params: {
       units:        'imperial',
       origins:      getOriginsString(inputData),
@@ -59,16 +76,11 @@ function getGoogleCommuteData(inputData){
   })
 
   .then(function (response) {
-    var googleCommuteData = response;
-    return googleCommuteData.data;
-  })
+    // sends google API data back to my wrapper function
+    // to do work on inputData, using this google response.data
 
-  .then(function (googleCommuteData){
-    populateCommuteTimes(googleCommuteData, inputData);
-    removeListingsWithCommutesLongerThanMaxTime(inputData);
-
-    // Test Shows Filter Works
-    console.log('\n\ndataReturningToClient: \n', inputData, '\n');
+    // console.log('\n\nGoogleDistanceData: \n', response.data, '\n');
+    return Promise.resolve(response.data);
   })
 
   .catch(function (response) {
