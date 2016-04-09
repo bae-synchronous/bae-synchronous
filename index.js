@@ -9,15 +9,15 @@ app.set('port', (process.env.PORT || 8000));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
+app.post('/', function(req, res) {
   //res.send(dummyData);
 });
 
 app.post('/places', function(req, res) {
     console.log('request made to /places');
-    // requestHandler(req, res);
+    requestHandler(req, res);
       // dummyData = JSON.stringify(dummyData);
-      res.send(dummyData);
+      // res.send(dummyData);
 });
 
 var server = app.listen(app.get('port'), function () {
