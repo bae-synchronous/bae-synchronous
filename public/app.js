@@ -77,15 +77,38 @@ angular.module('bae-synchronous', [])
             map: map
           });
           console.log('b4 loop', $scope.categoryListings);
-          for (var i = 0; i < data.categoryListings.length; i++) {
+          for (var i = 0; i < data.categoryListings.length; i) {
           console.log('in loop', data.categoryListings, $scope.markers, i);
           $scope.markers[i] = new google.maps.Marker({
             position: data.categoryListings[i].coordinates,
             map: map
           });
           console.log('markers[i]', $scope.markers[i]);
-          var content = '<div>' + name + $scope.categoryListings[i].name + $scope.categoryListings[i].timeFromAddress1 + '</div>' ;
+          var content = '<div>' + name + $scope.categoryListings[i].name + $scope.categoryListings[i].timeFromAddress1 + '</div>';
 
+
+          var firstCoords = $scope.categoryListings[0].coordinates;
+          var bounds = {
+            north: firstCoords.lat,
+            south: firstCoords.lat,
+            east: firstCoords.lng,
+            west: firstCoords.lng
+          };
+          var addressCords = [$scope.listings.address1.coordinates, $scope.listings.address2.coordinates];
+          var categoryCoords = $scope.categoryListings.map(function(listing) {
+            return listing.coordinates;
+          });
+
+          function expandBounds(bounds, coords) {
+            for (var i = 0; i < coords.length; i) {
+              bounds.north = Math.max(bounds.north, coords[i].lat);
+              bounds.south = Math.min(bounds.south, coords[i].lat);
+              bounds.east = Math.max(bounds.east, coords[i].lng);
+              bounds.west = Math.min(bounds.west, coords[i].lng);
+            }
+          }
+          expandBounds(bounds, addressCords.concat(categoryCoords));
+          map.fitBounds(bounds);
           $scope.markers[i].infowindow = new google.maps.InfoWindow({
               content: content
           });
