@@ -25,4 +25,25 @@ var server = app.listen(app.get('port'), function () {
     console.log('bae-synchronous is running on port ', port);
 });
 
+// // test validCategoryListings.js
+//   var startingData = require('./server/dummyData/categoryListings_from_Steve');
+//   var inputData    = startingData.categoryListings_from_Steve;
+
+//   var sh =  require('./server/validCategoryListings.js');
+//   // var results = sh.getValidCategoryListings(inputData);
+
+//   // test callback version
+//     // sh.getValidCategoryListings(inputData, functionThatNeedsMyData);
+
+//     // function functionThatNeedsMyData(results){
+//     //   console.log('--returned data---', results);
+//   // }
+
+//   // test promise version -- THIS IS NOT CORRECT -NOT SURE HOW TO TEST !!
+//     // var results = sh.getValidCategoryListings(inputData);
+//     // console.log('--returned data---', results);
+
+
+
+
 module.exports = server;
