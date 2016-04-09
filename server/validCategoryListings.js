@@ -35,7 +35,8 @@ var API_KEY_Server = config.shServerKey1;
 //   console.log('--returned data---', inputData);
 // }
 
-function getValidCategoryListings(inputData, functionThatNeedsMyData){
+// function getValidCategoryListings(inputData, functionThatNeedsMyData){
+function getValidCategoryListings(inputData){
   // this could/should be changed to return a promise,
   // instead of accepting a callback
 
@@ -49,12 +50,13 @@ function getValidCategoryListings(inputData, functionThatNeedsMyData){
   // taking it out of getGoogleCommuteData function
 
   // var googleCommuteData = getGoogleCommuteData(inputData);
-   getGoogleCommuteData(inputData)
+   return getGoogleCommuteData(inputData)
    .then(function (googleCommuteData){
     populateCommuteTimes(googleCommuteData, inputData);
     removeListingsWithCommutesLongerThanMaxTime(inputData);
-    functionThatNeedsMyData(inputData);
+    // functionThatNeedsMyData(inputData);
     console.log('\n finish \n');
+    return Promise.resolve(inputData);
   });
 
 }
