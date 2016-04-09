@@ -110,20 +110,20 @@ function getCommuteDuration(origins,destinations){
 
 function addCommuteTimesToListings(address1,address2,places){
   var destinations = helper.createDestinationsString(places);
-  var origins = helper.createOriginsString(address1.coordinates, address2.coordinates);      
-  
+  var origins = helper.createOriginsString(address1.coordinates, address2.coordinates);
+
   return getCommuteDuration(origins,destinations).then(function(commutes){
     log.commutesStatus();
     helper.addCommuteTimesToEachListing(places,commutes);
-    return places; 
-  }); 
+    return places;
+  });
 }
 
 //TODO write catch for promises
 function makeAPICalls(request) {
-  
+
   var response = helper.constructResponseObj(request);
-  
+
   return new Promise(function(resolve, reject) {
     var address1 = response.address1.address, address2 = response.address2.address;
     getCoordinatesForEachAddress(address1, address2).then(function(resp) {
@@ -135,7 +135,7 @@ function makeAPICalls(request) {
       getPlaces(thirdPoint, response.radius, response.category).then(function(places) {
           addCommuteTimesToListings(response.address1,response.address2,places)
           .then(function(places){
-            response.categoryListings = helper.filterByMaxTime(places,response.maxTime);        
+            response.categoryListings = helper.filterByMaxTime(places, +request.body.maxTime);
             response = helper.formatResponse(response);
             resolve(response);
 
