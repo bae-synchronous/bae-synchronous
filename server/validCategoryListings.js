@@ -49,13 +49,17 @@ function getValidCategoryListings(inputData){
   // taking it out of getGoogleCommuteData function
 
   // var googleCommuteData = getGoogleCommuteData(inputData);
-   return getGoogleCommuteData(inputData)
-   .then(function (googleCommuteData){
+  return getGoogleCommuteData(inputData)
+  .then(function (googleCommuteData){
     populateCommuteTimes(googleCommuteData, inputData);
     removeListingsWithCommutesLongerThanMaxTime(inputData);
     // functionThatNeedsMyData(inputData);
     // console.log('\n finish \n');
     return Promise.resolve(inputData);
+    })
+  .catch(function(caught){
+    console.log('catch getValidCategoryListings\n', caught);
+    return 'catch getValidCategoryListings\n';
   });
 
 }
@@ -84,9 +88,10 @@ function getGoogleCommuteData(inputData){
     return Promise.resolve(response.data);
   })
 
-  .catch(function (response) {
+  .catch(function (err) {
     // TODO: check on how to properly throw an error
-    console.log('error catch in getGoogleCommuteData: ',response);
+    console.log('error catch in getGoogleCommuteData: ', err);
+    return 'error catch in getGoogleCommuteData: ';
   });
 }
 

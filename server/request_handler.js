@@ -27,7 +27,10 @@ function getListingResults(req){
   var maxTime  = req.body.maxTime;
   // }  testMode check: if !sampleRequest
 
-  return coordinates.getPlacesFromThirdPoint(req.address1, req.address2, req.category, req.maxTime)
+  // use this line for TESTING
+  // return coordinates.getPlacesFromThirdPoint(req.address1, req.address2, req.category, req.maxTime)
+  // Use This Line for LIVE
+  return coordinates.getPlacesFromThirdPoint(address1, address2, category, maxTime)
     .then(function(results){
 
       // console.log('\n\nSH return getLPlacesFromThirdPoint results: \n', results);
@@ -41,12 +44,18 @@ function getListingResults(req){
 
       return Promise.resolve(results);
     })
+    .catch(function(caught){
+      console.log('catch getListingResults in request_handler.js', caught);
+      return 'catch getListingResults in request_handler.js';
+    });
+
 }
 
 function requestHandler(req,res){
   // response = getListingResults(address1, adress2, category, maxTime);
+  console.log(req.body, res);
   var response = getListingResults(req);
-  console.log('\n\nin requestHandler, getLisgingResults response: \n', response);
+  console.log('\n\nin requestHandler, getListingResults response: \n', response);
 
   // var data = require('./dummyData/data_we_return_to_client.js');
   // response = response || data;

@@ -45,4 +45,4 @@ function newCategoryListingObject() {
 
 module.exports = {
     newCategoryListingObject: newCategoryListingObject
-}
+};

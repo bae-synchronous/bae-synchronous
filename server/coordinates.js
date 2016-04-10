@@ -28,7 +28,7 @@ function getCoordinates(address){
     })
     .then(function (response) {
       var coordinatesObj = response.data.results[0].geometry.location;
-      // console.log(coordinatesObj);
+      console.log(coordinatesObj);
       return coordinatesObj;
     })
     .catch(function (response) {
@@ -60,7 +60,8 @@ function getPlaces(coordinates,radius,type,name){
     .catch(function (response) {
 
       //TODO fix error error catch, places { [Error: socket hang up] code: 'ECONNRESET' }
-      console.log('error catch, places',response);
+      console.log('error in catch, getPlaces, coordinates.js', response);
+      return 'could not get places';
     });
 }
 
@@ -77,8 +78,12 @@ function getCoordinatesForEachAddress(address1,address2){
           coordinatesObj1: coordinatesObj1,
           coordinatesObj2: coordinatesObj2
         };
-      }));
-};
+      }))
+      .catch(function(err){
+        console.log('error in getCoordinatesForEachAddress, coordinates.js: ', err, promises);
+        return 'could not get all three sets of coordinates';
+      });
+}
 
 //TODO write catch for promises
 function getPlacesFromThirdPoint(address1, address2, category,duration) {
@@ -123,8 +128,12 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
         // console.log('created categoryListings !\n\n', response.categoryListings);
         resolve(response);
       });
-      });
+      })
+    .catch(function(caught){
+      console.log('could not getPlacesFromThirdPoint in coordinates.js', caught);
+      return 'could not getPlacesFromThirdPoint in coordinates.js';
     });
+  });
   // });
 }
 
