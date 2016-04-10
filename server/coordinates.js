@@ -2,6 +2,7 @@ var axios = require('axios');
 // var dummy = require('./dummyData/data_we_return_to_client');
 var getThirdPoint = require('./thirdPoint').getThirdPoint;
 var helper = require('./helper');
+var helper2 = require('./helper2');
 // var _ = require('underscore');
 
 var API_KEY ='AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ';
@@ -109,13 +110,15 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
 
       getPlaces(thirdPoint, radius, category)
     .then(function(places) {
-        console.log('1');
-          // addCommuteTimes(places).then(function(places){
-            console.log('2');
-            response.categoryListings = places;
-            console.log(response.categoryListings);
-            resolve(response);
-          });
+        // console.log('1', response);
+            // console.log('2');
+            // console.log(response);
+            // formatResponse(places);
+            // rename formatResponse to createCategoryListings() ??
+        response.categoryListings = helper2.formatResponse(places);
+        console.log(response.categoryListings);
+        resolve(response);
+      });
       });
     });
   // });
