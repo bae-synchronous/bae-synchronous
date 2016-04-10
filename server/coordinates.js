@@ -8,7 +8,7 @@ var helper2 = require('./helper2');
 var API_KEY ='AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ';
 
 /////
-//testing
+//testing This File Only
 // var fromSteve = getPlacesFromThirdPoint('50 Murray Street, Pyrmont',
 //                                         '37 Pyrmont Street, Pyrmont',
 //                                         'gym',

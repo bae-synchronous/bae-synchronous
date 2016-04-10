@@ -5,15 +5,15 @@ var validCategoryListings = require('./validCategoryListings.js');
 /////// uncomment below, and run this file to see the back end in action
 // without requiring a request from the client
 //////for testing..
-var sampleRequest = {
-  address1: '50 Murray Street, Pyrmont',
-  address2: '37 Pyrmont Street, Pyrmont',
-  category: 'gym',
-  maxTime : 2
-}
+// var sampleRequest = {
+//   address1: '50 Murray Street, Pyrmont',
+//   address2: '37 Pyrmont Street, Pyrmont',
+//   category: 'gym',
+//   maxTime : 2
+// }
 
-var response = getListingResults(sampleRequest);
-console.log('response: ', response);
+// var response = getListingResults(sampleRequest);
+// console.log('response: ', response);
 /////
 //// end end for testing..
 
@@ -21,11 +21,11 @@ function getListingResults(req){
 
   // if (!sampleRequest) {
   // // comment out or use above line if testing
-  // var address1 = req.body.address1;
-  // var address2 = req.body.address2;
-  // var category = req.body.category;
-  // var maxTime  = req.body.maxTime;
-  // }
+  var address1 = req.body.address1;
+  var address2 = req.body.address2;
+  var category = req.body.category;
+  var maxTime  = req.body.maxTime;
+  // }  testMode check: if !sampleRequest
 
   return coordinates.getPlacesFromThirdPoint(req.address1, req.address2, req.category, req.maxTime)
     .then(function(results){
