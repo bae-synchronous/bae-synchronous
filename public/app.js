@@ -7,6 +7,7 @@ angular.module('bae-synchronous', [])
 .factory('Map', function($http) {
   function getData() {
     //returns data from the root directory
+    console.log('\n----SH app.js postData "/", resp.data: \n', resp.data);
     return $http({
       method: '/GET',
       url: '/',
@@ -22,7 +23,12 @@ angular.module('bae-synchronous', [])
     })
     //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
+      // recieve data from the back end
+      console.log('\n----SH app.js postData "/places", resp.data: \n', resp.data);
       return resp.data;
+    })
+    .catch(function(caught){
+      console.log('catch in app.js, postData: ', caught);
     });
   }
   //we need to return the functions to the front end in order to access the functions
