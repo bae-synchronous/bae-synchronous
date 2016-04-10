@@ -19,12 +19,8 @@ var config = require('./config');
 var _ = require('underscore');
 
 // test data
-var startingData = require('./dummyData/categoryListings_from_Steve');
-var inputData = startingData.categoryListings_from_Steve;
-
-// GoogleMapsDistanceMatrixAPI_base uri
-var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
-var API_KEY_Server = config.shServerKey1;
+// var startingData = require('./dummyData/categoryListings_from_Steve');
+// var inputData = startingData.categoryListings_from_Steve;
 
 // sample call from outside this file
 // getValidCategoryListings(inputData, function functionThatNeedsMyData(inputData){
@@ -35,15 +31,18 @@ var API_KEY_Server = config.shServerKey1;
 //   console.log('--returned data---', inputData);
 // }
 
+// GoogleMapsDistanceMatrixAPI_base uri
+var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
+var API_KEY_Server = config.shServerKey1;
+
+
 // function getValidCategoryListings(inputData, functionThatNeedsMyData){
 function getValidCategoryListings(inputData){
-  // this could/should be changed to return a promise,
-  // instead of accepting a callback
-
+  // console.log('\n\nin getValidCategoryListings with inputData: \n', inputData);
 
   // so can test that filter is working, change steve's supplied maxTime
-  inputData.maxTime = 2;
-  console.log('\n\ninputStevesData: (after I changed to maxTime = 2)\n\n', inputData, '\n');
+  // inputData.maxTime = 2;
+  // console.log('\n\ninputStevesData: (after I changed to maxTime = 2)\n\n', inputData, '\n');
 
 
   // moved my promises chain TO HERE
@@ -55,7 +54,7 @@ function getValidCategoryListings(inputData){
     populateCommuteTimes(googleCommuteData, inputData);
     removeListingsWithCommutesLongerThanMaxTime(inputData);
     // functionThatNeedsMyData(inputData);
-    console.log('\n finish \n');
+    // console.log('\n finish \n');
     return Promise.resolve(inputData);
   });
 

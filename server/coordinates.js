@@ -7,12 +7,13 @@ var helper2 = require('./helper2');
 
 var API_KEY ='AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ';
 
+/////
 //testing
-var fromSteve = getPlacesFromThirdPoint('50 Murray Street, Pyrmont',
-                        '37 Pyrmont Street, Pyrmont',
-                        'gym',
-                        30);
-console.log('results from Steve:\n\n', fromSteve);
+// var fromSteve = getPlacesFromThirdPoint('50 Murray Street, Pyrmont',
+//                                         '37 Pyrmont Street, Pyrmont',
+//                                         'gym',
+//                                         30);
+// console.log('results from Steve:\n\n', fromSteve);
 /////
 
 // retreives geographic coordinates for an address
@@ -53,7 +54,7 @@ function getPlaces(coordinates,radius,type,name){
     })
     .then(function (response) {
       var places = response.data.results;
-      // console.log(places)
+      // console.log('places: ', places)
       return places;
     })
     .catch(function (response) {
@@ -81,6 +82,8 @@ function getCoordinatesForEachAddress(address1,address2){
 
 //TODO write catch for promises
 function getPlacesFromThirdPoint(address1, address2, category,duration) {
+  // this could be in a separate function: initializeResponseObject()
+  //console.log('initializing our response/results object');
   var radius = 500;
   var response = {
     address1: {
@@ -99,6 +102,7 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
   };
 
   return new Promise(function(resolve, reject) {
+    // console.log('going to getCoordinatesForEachAddress..');
     getCoordinatesForEachAddress(address1, address2)
     .then(function(resp) {
 
@@ -106,17 +110,17 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
       response.address2.coordinates = resp.coordinatesObj2;
       response.thirdPoint.coordinates = thirdPoint = resp.thirdPoint;
 
-      // console.log('thirdPoint:',thirdPoint);
+      // console.log('going to getPlaces at:',thirdPoint, radius, category);
 
       getPlaces(thirdPoint, radius, category)
     .then(function(places) {
-        // console.log('1', response);
+        // console.log('1: got places, response: ', response);
             // console.log('2');
             // console.log(response);
-            // formatResponse(places);
+
             // rename formatResponse to createCategoryListings() ??
         response.categoryListings = helper2.formatResponse(places);
-        console.log(response.categoryListings);
+        // console.log('created categoryListings !\n\n', response.categoryListings);
         resolve(response);
       });
       });
