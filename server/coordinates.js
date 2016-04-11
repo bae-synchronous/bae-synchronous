@@ -4,6 +4,7 @@ var getThirdPoint = require('./thirdPoint').getThirdPoint;
 var helper = require('./helper');
 var helper2 = require('./helper2');
 // var _ = require('underscore');
+var config = require('./config');
 
 var API_KEY = config.steveAPIkey;
 
