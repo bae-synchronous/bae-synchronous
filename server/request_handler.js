@@ -34,6 +34,7 @@ function getListingResults(req){
       console.log('\n\n', results.categoryListings.length, ' validCategoryListings: ' +
                   ' -- Returning To Client! --\n\n');//, results);
       // return Promise.resolve(results);
+      console.log(' -- Results Sent :-) --');
       return results;
     })
     .catch(function(caught){
