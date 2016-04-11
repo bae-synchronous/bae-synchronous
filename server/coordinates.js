@@ -58,7 +58,7 @@ function getPlaces(coordinates,radius,type, name){
     })
     .then(function (response) {
       var places = response.data.results;
-      // console.log('places: ', places)
+      console.log('places: ', places)
       return places;
     })
     .catch(function (response) {
