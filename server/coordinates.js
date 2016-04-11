@@ -6,8 +6,8 @@ var helper2 = require('./helper2');
 // var _ = require('underscore');
 var config = require('./config');
 
-// var API_KEY = config.steveAPIkey;
-var API_KEY = config.shServerKey1;
+var API_KEY = config.steveAPIkey;
+// var API_KEY = config.shServerKey1;
 
 /////
 //testing This File Only
