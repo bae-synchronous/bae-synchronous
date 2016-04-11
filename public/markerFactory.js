@@ -1,9 +1,10 @@
 angular.module('bae-synchronous.marker', [])
   .factory('Marker', function(){
-    function makeMarker(position, map) {
+    function makeMarker(position, map, icon) {
       var marker = new google.maps.Marker({
         position: position,
-        map: map
+        map: map,
+        icon: icon
       });
       return marker;
     }
