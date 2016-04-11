@@ -40,13 +40,13 @@ function getListingResults(req){
     })
     .then(function(results){
       console.log('\n\n', results.categoryListings.length, ' validCategoryListings: ' +
-                  ' -- Returning This To Client! --\n\n', results);
+                  ' -- Returning To Client! --\n\n');//, results);
 
       // return Promise.resolve(results);
       return results;
     })
     .catch(function(caught){
-      console.log('\ncatch getListingResults in request_handler.js\n', caught);
+      console.log('\ncatch getListingResults in request_handler.js', caught);
       // return 'catch getListingResults in request_handler.js';
     });
 
@@ -54,10 +54,10 @@ function getListingResults(req){
 
 function requestHandler(req,res){
   // response = getListingResults(address1, adress2, category, maxTime);
-  console.log(req.body, res);
+  // console.log(req.body, res);
   getListingResults(req)
     .then(function(listingData){
-      console.log('\n\nin requestHandler, sending getListingResults data back to client: \n', listingData);
+      console.log('\n\n---requestHandler, sending getListingResults data back to client:---\n', listingData);
       res.send(listingData);
     });
 
