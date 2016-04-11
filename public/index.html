@@ -56,7 +56,7 @@
            <div>
              From Work: {{ listing.timeFromAddress2 }}
            </div>
-           <div>
+           <div ng-if='listing.rating !== undefined'>
              Rating: {{ listing.rating }}
            </div>
          </div>

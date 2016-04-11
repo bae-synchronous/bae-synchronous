@@ -1,8 +1,3 @@
-//takes control of the div directly underneath the body
-//TODO check for atom white spaces; to check for indentation being correct;
-// var angular = require('angular');
-var testGlobal;
-
 angular.module('bae-synchronous', [])
 
 .factory('Map', function($http) {
@@ -38,30 +33,14 @@ angular.module('bae-synchronous', [])
   };
 })
 
-// .factory('DisplayMap', function() {
-//   var map;
-//   function initMap() {
-//       var myLatLng1 = {lat: -34.397, lng: 150.644};
-//       var myLatLng2 = {lat: -34.597, lng: 150.644};
-//       map = new google.maps.Map(document.getElementById('map'), {
-//         center: {lat: -34.397, lng: 150.644},
-//         zoom: 8
-//       });
-//    }
-//    return {
-//      map: map,
-//      initMap: initMap
-//    };
-// })
 
 .controller('MainController', function ($scope, Map) {
     $scope.submitted = false;
     $scope.listings = {};
     $scope.categoryListings = {};
     $scope.markers = [];
-    // $scope.map = DisplayMap.map;
-    // $scope.initMap = DisplayMap.initMap();
-    //function to be called on the form being submitted
+    $scope.hasRating = false;
+
     $scope.postData = function() {
       //pass in the model data into the Map factory
       $scope.submitted = true;
@@ -73,6 +52,8 @@ angular.module('bae-synchronous', [])
           console.log("Recieved data from server", data);
           $scope.listings = data;
           $scope.categoryListings = data.categoryListings;
+          console.log($scope.categoryListings);
+
           console.log('category: \n', data.categoryListings);
           var marker3 = new google.maps.Marker({
             position: $scope.listings.address1.coordinates,
@@ -127,6 +108,10 @@ angular.module('bae-synchronous', [])
     });
   };
 
+
+  var exports = {
+
+  }
     //there must be a more efficent way of doing this......
     $scope.places = {
       accounting: 'accounting',
