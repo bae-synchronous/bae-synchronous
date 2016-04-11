@@ -25,7 +25,6 @@ app.post('/places', function(req, res) {
 var server = app.listen(app.get('port'), function () {
   var port = server.address().port;
     console.log('bae-synchronous is running on port ', port);
-    console.log(process.env);
 });
 
 // // test validCategoryListings.js
