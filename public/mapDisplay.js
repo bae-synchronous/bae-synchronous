@@ -97,7 +97,7 @@ function initMap() {
   });
 var categories = data_we_return_to_client.categoryListings;
 for (var i = 0; i < categories.length; i++) {
-  console.log(categories);
+  console.log('categories in mapDisplay.js', categories);
   markers[i] = new google.maps.Marker({
     position: categories[i].coordinates,
     map: map

@@ -46,7 +46,7 @@ function getListingResults(req){
       return results;
     })
     .catch(function(caught){
-      console.log('catch getListingResults in request_handler.js', caught);
+      console.log('\ncatch getListingResults in request_handler.js\n', caught);
       // return 'catch getListingResults in request_handler.js';
     });
 
