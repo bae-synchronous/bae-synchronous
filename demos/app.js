@@ -22,6 +22,7 @@ angular.module('bae-synchronous', [])
     })
     //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
+      console.log('\nSH postData resp in app.js\n', resp);
       return resp.data;
     });
   }

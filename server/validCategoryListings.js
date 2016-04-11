@@ -59,7 +59,7 @@ function getValidCategoryListings(inputData){
     })
   .catch(function(caught){
     console.log('catch getValidCategoryListings\n', caught);
-    return 'catch getValidCategoryListings\n';
+    // return 'catch getValidCategoryListings\n';
   });
 
 }
@@ -91,7 +91,7 @@ function getGoogleCommuteData(inputData){
   .catch(function (err) {
     // TODO: check on how to properly throw an error
     console.log('error catch in getGoogleCommuteData: ', err);
-    return 'error catch in getGoogleCommuteData: ';
+    // return 'error catch in getGoogleCommuteData: ';
   });
 }
 

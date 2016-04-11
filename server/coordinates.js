@@ -5,7 +5,7 @@ var helper = require('./helper');
 var helper2 = require('./helper2');
 // var _ = require('underscore');
 
-var API_KEY ='AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ';
+var API_KEY = config.steveAPIkey;
 
 /////
 //testing This File Only
@@ -33,7 +33,7 @@ function getCoordinates(address){
     })
     .catch(function (response) {
       console.log('error',response);
-      return 'enter a valid address';
+      // return 'enter a valid address';
     });
 }
 
@@ -61,7 +61,7 @@ function getPlaces(coordinates,radius,type,name){
 
       //TODO fix error error catch, places { [Error: socket hang up] code: 'ECONNRESET' }
       console.log('error in catch, getPlaces, coordinates.js', response);
-      return 'could not get places';
+      // return 'could not get places';
     });
 }
 
@@ -81,7 +81,7 @@ function getCoordinatesForEachAddress(address1,address2){
       }))
       .catch(function(err){
         console.log('error in getCoordinatesForEachAddress, coordinates.js: ', err, promises);
-        return 'could not get all three sets of coordinates';
+        // return 'could not get all three sets of coordinates';
       });
 }
 
@@ -131,7 +131,7 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
       })
     .catch(function(caught){
       console.log('could not getPlacesFromThirdPoint in coordinates.js', caught);
-      return 'could not getPlacesFromThirdPoint in coordinates.js';
+      // return 'could not getPlacesFromThirdPoint in coordinates.js';
     });
   });
   // });

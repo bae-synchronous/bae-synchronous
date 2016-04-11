@@ -11,11 +11,13 @@ app.use(bodyParser.json());
 
 app.post('/', function(req, res) {
   //res.send(dummyData);
+    console.log('\nSH index.js app.post "/", res.data: \n', res.data);
 });
 
 app.post('/places', function(req, res) {
     console.log('request made to /places');
     requestHandler(req, res);
+    console.log('\nSH index.js app.post "/places", res.data: \n', res.data);
       // dummyData = JSON.stringify(dummyData);
       // res.send(dummyData);
 });

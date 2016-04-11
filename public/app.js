@@ -1,5 +1,6 @@
 //takes control of the div directly underneath the body
 //TODO check for atom white spaces; to check for indentation being correct;
+// var angular = require('angular');
 var testGlobal;
 
 angular.module('bae-synchronous', [])
@@ -23,7 +24,7 @@ angular.module('bae-synchronous', [])
     //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
       // recieve data from the back end
-      // console.log('\n----SH app.js postData "/places", resp.data: \n', resp.data);
+      console.log('\n----SH app.js postData "/places", resp.data: \n', resp.data);
       return resp.data;
     })
     .catch(function(caught){

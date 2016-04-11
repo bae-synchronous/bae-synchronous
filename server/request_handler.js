@@ -42,11 +42,12 @@ function getListingResults(req){
       console.log('\n\n', results.categoryListings.length, ' validCategoryListings: ' +
                   ' -- Returning This To Client! --\n\n', results);
 
-      return Promise.resolve(results);
+      // return Promise.resolve(results);
+      return results;
     })
     .catch(function(caught){
       console.log('catch getListingResults in request_handler.js', caught);
-      return 'catch getListingResults in request_handler.js';
+      // return 'catch getListingResults in request_handler.js';
     });
 
 }
@@ -54,15 +55,23 @@ function getListingResults(req){
 function requestHandler(req,res){
   // response = getListingResults(address1, adress2, category, maxTime);
   console.log(req.body, res);
-  var response = getListingResults(req);
-  console.log('\n\nin requestHandler, getListingResults response: \n', response);
+  getListingResults(req)
+    .then(function(listingData){
+      console.log('\n\nin requestHandler, sending getListingResults data back to client: \n', listingData);
+      res.send(listingData);
+    });
+
+  //console.log('\n\nin requestHandler, getListingResults response: \n', response);
+  // var data = require('./dummyData/data_we_return_to_client.js');
+  // response = response || data;
+}
+///
 
   // var data = require('./dummyData/data_we_return_to_client.js');
   // response = response || data;
 
-  console.log('\n\n---final response: \n', response);
-  res.send(response);
-}
+  // console.log('\n\n---final response: \n', response);
+// }
 
   // coordinates.getPlacesFromThirdPoint(address1, address2, category,duration)
   //   .then(function(response) {
