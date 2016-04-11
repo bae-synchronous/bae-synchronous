@@ -45,13 +45,13 @@ function formatResponse(places){
     var categoryListing = cLO.newCategoryListingObject();
 
     // console.log(ourResponseObj.address, place.vicinity);
-    console.log('\nhelper2.js formatResponse, place: ', place, '\n\n');
+    // console.log('\nhelper2.js formatResponse, place: ', place, '\n\n');
     categoryListing.coordinates = place.geometry.location;
     categoryListing.place_id = place.place_id;
     categoryListing.address = place.vicinity;
-    categoryListings.rating = place.rating;
-    categoryListings.name = place.name;
-    console.log('---name', place.name);
+    categoryListing.rating = place.rating;
+    categoryListing.name = place.name;
+    // console.log('---name', place.name);
 
     // console.log('\n\nnew categoryListing Ready: \n\n', categoryListing);
     categoryListings.push(categoryListing);
