@@ -2,6 +2,7 @@
 var cLO = require('./categoryListingObject.js');
 var _ = require('underscore');
 
+// move to categoryListingsObject.js ?
 function constructResponseObj(req){
   var address1 = req.body.address1, address2 = req.body.address2, category = req.body.category, duration = req.body.duration;
     var radius = 500;
@@ -32,10 +33,11 @@ function formatResponse(places){
     var categoryListing = cLO.newCategoryListingObject();
 
     // console.log(ourResponseObj.address, place.vicinity);
-    categoryListing.address = place.vicinity;
     categoryListing.coordinates = place.geometry.location;
-    categoryListings.rating = place.rating;
     categoryListing.place_id = place.place_id;
+    categoryListing.address = place.vicinity;
+    categoryListings.rating = place.rating;
+    categoryListings.name = place.name;
 
     // console.log('\n\nnew categoryListing Ready: \n\n', categoryListing);
     categoryListings.push(categoryListing);
