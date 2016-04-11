@@ -89,7 +89,8 @@ function getPlacesFromThirdPoint(address1, address2, category, maxTime) {
 
   // TODO: move call to initializeResultsObject outside, before this funciton if possible
   var response = initializeResultsObject(address1, address2, category, maxTime);
-  var radius = response.radius; // initialized at 0
+  var radius = getRadius(address1, address2, maxTime);
+  response.radius = radius;
 
   return new Promise(function(resolve, reject) {
     // console.log('going to getCoordinatesForEachAddress..');
@@ -99,7 +100,6 @@ function getPlacesFromThirdPoint(address1, address2, category, maxTime) {
       response.address1.coordinates = resp.coordinatesObj1;
       response.address2.coordinates = resp.coordinatesObj2;
       response.thirdPoint.coordinates = thirdPoint = resp.thirdPoint;
-      response.radius = radius = getRadius(address1, address2, maxTime);
 
       // this .then is attached to getPlaces, nested inside the other then
       // TODO: refactor possible, or not ??
