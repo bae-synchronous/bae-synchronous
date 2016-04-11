@@ -1,4 +1,4 @@
-server/config.js
+config.js
 
 node_modules
 .DS_Store
@@ -18,7 +18,7 @@ npm-depug.log
 
 # project files should be checked into the repository, unless a significant
 # proportion of contributors will probably not be using SublimeText
-#*.sublime-project
+*.sublime-project
 
 # sftp configuration file
 sftp-config.json
@@ -34,4 +34,3 @@ Icon
 
 # Thumbnails
 ._*
-

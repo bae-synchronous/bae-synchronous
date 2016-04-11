@@ -7,7 +7,7 @@ var getRadius = require('./thirdPoint').getRadius;
 var helper2 = require('./helper2');
 var helper = require('./helper');
 
-var API_KEY = config.steveAPIkey;
+var API_KEY = process.env.STEVE_KEY;
 
 //  TODO: move testing code into a testing file
 /////
@@ -24,7 +24,7 @@ var API_KEY = config.steveAPIkey;
 // retreives geographic coordinates for an address
 function getCoordinates(address){
   address = helper.replaceEmptySpaces(address);
-
+  console.log("API key line 26 coordinates.js", API_KEY);
   return axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         address: address,

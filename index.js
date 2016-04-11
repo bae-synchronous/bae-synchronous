@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var requestHandler = require('./server/request_handler.js');
 var dummyData = require('./server/dummyData/data_we_return_to_client');
 
-
 var app = express();
 app.set('port', (process.env.PORT || 8000));
 app.use(express.static('public'));
