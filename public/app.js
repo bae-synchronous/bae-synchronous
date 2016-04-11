@@ -24,7 +24,7 @@ angular.module('bae-synchronous', [])
     //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
       // recieve data from the back end
-      console.log('\n----SH app.js postData "/places", resp.data: \n', resp.data);
+      // console.log('\n----SH app.js postData "/places", resp.data: \n', resp.data);
       return resp.data;
     })
     .catch(function(caught){
@@ -73,7 +73,7 @@ angular.module('bae-synchronous', [])
           console.log("Recieved data from server", data);
           $scope.listings = data;
           $scope.categoryListings = data.categoryListings;
-          console.log('category', data.categoryListings);
+          console.log('category: \n', data.categoryListings);
           var marker3 = new google.maps.Marker({
             position: $scope.listings.address1.coordinates,
             map: map

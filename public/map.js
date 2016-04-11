@@ -128,9 +128,9 @@ axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {
     }
   })
   .then(function (response) {
-    console.log(response);
+    console.log('maps.js initialize, response: ', response);
   })
   .catch(function (response) {
-    console.log(response);
+    console.log('catch in maps.js initialize ', response);
   });
 

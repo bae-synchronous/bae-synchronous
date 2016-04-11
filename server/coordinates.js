@@ -1,12 +1,14 @@
 var axios = require('axios');
 // var dummy = require('./dummyData/data_we_return_to_client');
 var getThirdPoint = require('./thirdPoint').getThirdPoint;
+var getRadius = require('./thirdPoint').getRadius;
 var helper = require('./helper');
 var helper2 = require('./helper2');
 // var _ = require('underscore');
 var config = require('./config');
 
 var API_KEY = config.steveAPIkey;
+// var API_KEY = config.shServerKey1;
 
 /////
 //testing This File Only
@@ -16,6 +18,7 @@ var API_KEY = config.steveAPIkey;
 //                                         30);
 // console.log('results from Steve:\n\n', fromSteve);
 /////
+
 
 // retreives geographic coordinates for an address
 function getCoordinates(address){
@@ -29,18 +32,18 @@ function getCoordinates(address){
     })
     .then(function (response) {
       var coordinatesObj = response.data.results[0].geometry.location;
-      console.log(coordinatesObj);
+      // console.log('coordinates.js getCoordinates, coordinatesObj: \n'coordinatesObj);
       return coordinatesObj;
     })
     .catch(function (response) {
-      console.log('error',response);
+      console.log('catch error in coordinates.js, getGoordinates(): \n',response);
       // return 'enter a valid address';
     });
 }
 
 // requests a list of "places" based on coordinates (in this case, the "third point")
 // and a type (e.g. "gym") within a radius (measured in meters)
-function getPlaces(coordinates,radius,type,name){
+function getPlaces(coordinates,radius,type, name){
 
     coordinates = (typeof coordinates !== 'string')? helper.stringifyCoordinates(coordinates): coordinates;
 
@@ -50,7 +53,7 @@ function getPlaces(coordinates,radius,type,name){
         radius: radius,
         type: type,
         // name: name, // filtering results by name is possible via this parameter
-        key: 'AIzaSyAvXHQtnUPWtvPzT2M3u2VD1Pxqi7ihyfQ'
+        key: API_KEY
       }
     })
     .then(function (response) {
@@ -61,7 +64,7 @@ function getPlaces(coordinates,radius,type,name){
     .catch(function (response) {
 
       //TODO fix error error catch, places { [Error: socket hang up] code: 'ECONNRESET' }
-      console.log('error in catch, getPlaces, coordinates.js', response);
+      console.log('error in catch, getPlaces, coordinates.js: \n', response);
       // return 'could not get places';
     });
 }
@@ -81,16 +84,16 @@ function getCoordinatesForEachAddress(address1,address2){
         };
       }))
       .catch(function(err){
-        console.log('error in getCoordinatesForEachAddress, coordinates.js: ', err, promises);
+        console.log('error in getCoordinatesForEachAddress, coordinates.js: \n', err, promises);
         // return 'could not get all three sets of coordinates';
       });
 }
 
 //TODO write catch for promises
-function getPlacesFromThirdPoint(address1, address2, category,duration) {
+function getPlacesFromThirdPoint(address1, address2, category, maxTime) {
   // this could be in a separate function: initializeResponseObject()
   //console.log('initializing our response/results object');
-  var radius = 500;
+  var radius = getRadius(address1, address2, maxTime);
   var response = {
     address1: {
       address: address1
@@ -103,7 +106,7 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
     },
     category: category,
     radius: radius,
-    maxTime: duration,
+    maxTime: maxTime,
     categoryListings: []
   };
 
@@ -131,7 +134,7 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
       });
       })
     .catch(function(caught){
-      console.log('could not getPlacesFromThirdPoint in coordinates.js', caught);
+      console.log('could not getPlacesFromThirdPoint in coordinates.js: \n', caught);
       // return 'could not getPlacesFromThirdPoint in coordinates.js';
     });
   });

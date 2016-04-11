@@ -58,7 +58,7 @@ function getValidCategoryListings(inputData){
     return Promise.resolve(inputData);
     })
   .catch(function(caught){
-    console.log('catch getValidCategoryListings\n', caught);
+    console.log('catch validCategoryListings.js, getValidCategoryListings\n', caught);
     // return 'catch getValidCategoryListings\n';
   });
 
