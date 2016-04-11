@@ -1,6 +1,7 @@
 var axios = require('axios');
 // var dummy = require('./dummyData/data_we_return_to_client');
 var getThirdPoint = require('./thirdPoint').getThirdPoint;
+var getRadius = require('./thirdPoint').getRadius;
 var helper = require('./helper');
 var helper2 = require('./helper2');
 // var _ = require('underscore');
@@ -89,10 +90,10 @@ function getCoordinatesForEachAddress(address1,address2){
 }
 
 //TODO write catch for promises
-function getPlacesFromThirdPoint(address1, address2, category,duration) {
+function getPlacesFromThirdPoint(address1, address2, category, maxTime) {
   // this could be in a separate function: initializeResponseObject()
   //console.log('initializing our response/results object');
-  var radius = 500;
+  var radius = getRadius(address1, address2, maxTime);
   var response = {
     address1: {
       address: address1
@@ -105,7 +106,7 @@ function getPlacesFromThirdPoint(address1, address2, category,duration) {
     },
     category: category,
     radius: radius,
-    maxTime: duration,
+    maxTime: maxTime,
     categoryListings: []
   };
 
