@@ -27,7 +27,7 @@ angular.module('bae-synchronous.MainController', [])
 
           for (var i = 0; i < data.categoryListings.length; i++) {
             $scope.markers[i] = Marker.makeMarker(data.categoryListings[i].coordinates, map);
-            var content = '<div>' + name + $scope.categoryListings[i].name + '</div>';
+            var content = '<div>' + name + $scope.categoryListings[i].name + '</div>' + '<div>' + name + $scope.categoryListings[i].address + '</div>';
             var firstCoords = $scope.categoryListings[0].coordinates;
             var bounds = {
               north: firstCoords.lat,
