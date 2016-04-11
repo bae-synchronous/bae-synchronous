@@ -16,15 +16,33 @@
 // numbers possibly could be initialized at 0, if certain that 0 would never be
     // a valid value for these number fields.
 
-var categoryListingObject =
-        {
-            name: '',
-            address: '',
-            coordinates: { lat: null, lng: null },  // numbers
-            timeFromAddress1: null,                 // number: time in minutes
-            timeFromAddress2: null,                 // number: time in minutes
-            place_id: '',
-            rating: null                            // number: 1-5 or 1-10
-        };
+// var categoryListingObject =
+//         {
+//             name: '',
+//             address: '',
+//             coordinates: { lat: null, lng: null },  // numbers
+//             timeFromAddress1: null,                 // number: time in minutes
+//             timeFromAddress2: null,                 // number: time in minutes
+//             place_id: '',
+//             rating: null                            // number: 1-5 or 1-10
+//         };
 
-module.exports = categoryListingObject;
+function newCategoryListingObject() {
+    var newObj = {};
+
+    newObj.name = '';
+    newObj.address = '';
+    newObj.coordinates = { lat: null, lng: null };  // numbers
+    newObj.timeFromAddress1 = null;                 // number = time in minutes
+    newObj.timeFromAddress2 = null;                 // number = time in minutes
+    newObj.place_id = '';
+    newObj.rating = null;
+    // testing only: remove next line
+    // newObj.rating = 5                            // number: 1-5 or 1-10
+
+    return newObj;
+}
+
+module.exports = {
+    newCategoryListingObject: newCategoryListingObject
+};

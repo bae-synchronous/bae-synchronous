@@ -1,5 +1,6 @@
 //takes control of the div directly underneath the body
 //TODO check for atom white spaces; to check for indentation being correct;
+// var angular = require('angular');
 var testGlobal;
 
 angular.module('bae-synchronous', [])
@@ -22,7 +23,12 @@ angular.module('bae-synchronous', [])
     })
     //asychnronous call so we need to use a promise in order to make sure we get the data
     .then(function(resp) {
+      // recieve data from the back end
+      console.log('\n----SH app.js postData "/places", resp.data: \n', resp.data);
       return resp.data;
+    })
+    .catch(function(caught){
+      console.log('catch in app.js, postData: ', caught);
     });
   }
   //we need to return the functions to the front end in order to access the functions
@@ -77,11 +83,11 @@ angular.module('bae-synchronous', [])
             map: map
           });
           console.log('b4 loop', $scope.categoryListings);
-          for (var i = 0; i < data.categoryListings.length; i) {
-          console.log('in loop', data.categoryListings, $scope.markers, i);
-          $scope.markers[i] = new google.maps.Marker({
-            position: data.categoryListings[i].coordinates,
-            map: map
+          for (var i = 0; i < data.categoryListings.length; i++) {
+            console.log('in loop', data.categoryListings, $scope.markers, i);
+            $scope.markers[i] = new google.maps.Marker({
+              position: data.categoryListings[i].coordinates,
+              map: map
           });
           console.log('markers[i]', $scope.markers[i]);
           var content = '<div>' + name + $scope.categoryListings[i].name + $scope.categoryListings[i].timeFromAddress1 + '</div>';
@@ -100,7 +106,7 @@ angular.module('bae-synchronous', [])
           });
 
           function expandBounds(bounds, coords) {
-            for (var i = 0; i < coords.length; i) {
+            for (var i = 0; i < coords.length; i++) {
               bounds.north = Math.max(bounds.north, coords[i].lat);
               bounds.south = Math.min(bounds.south, coords[i].lat);
               bounds.east = Math.max(bounds.east, coords[i].lng);
