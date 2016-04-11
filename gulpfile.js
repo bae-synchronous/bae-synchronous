@@ -8,8 +8,7 @@ var watch = require('gulp-watch');
 gulp.task('lint', function() {
   return gulp.src([
     './*.js',
-    './public/**/.js',
-    './public/*.js',
+    './public/**/*.js',
     './server/*.js',
     './specs/*.js'
   ])
