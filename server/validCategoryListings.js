@@ -1,6 +1,11 @@
+
 // FOR LINTING (inside sublime) CHECK ONLY
 // var require = function(){};
 // var _ = {};
+
+// -------TODO: MOVE TESTING CODE INTO A TEST FILE------
+//             Lots of Test Code in Here
+// also, possibly move last two fuctions into helper.js file
 
 // input:
   //  an object with structure that the client expects to receive back
@@ -26,10 +31,6 @@ var _ = require('underscore');
 // getValidCategoryListings(inputData, function functionThatNeedsMyData(inputData){
 //     console.log('\n\ndata Returning To Client: \n', inputData, '\n');
 // });
-
-// function functionThatNeedsMyData(inputData){
-//   console.log('--returned data---', inputData);
-// }
 
 // GoogleMapsDistanceMatrixAPI_base uri
 var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";

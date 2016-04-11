@@ -23,37 +23,31 @@ function constructResponseObj(req){
     },
     thirdPoint: {
       address: ''
-      // would like to store radius here, as it's used in conjuction with thirdPoint
+      // TODO: would like to store radius here, as it's used in conjuction with thirdPoint
     },
     category: category,
-    // could make sense to store radius along with thirdPoint's oordinates, as they are related
+    // TODO: could make sense to move radius into thirdPoint's object, as they are used together
     radius: radius,
     maxTime: duration,
     categoryListings: []
   };
 }
 
-// rename to createCategoryListings() ??
+// TODO: ok rename to createCategoryListings() or getCategoryListings() ??
 function formatResponse(places){
-  // console.log('in formatResponse places[0]: ', places[0]);
   var categoryListings = [];
-  // console.log('-------places-----\n', places);
-  // console.log('\n-------places in helper2.js formatResponse() end -----\n');
 
   _.each(places, function(place){
+
     // create a new categoryListingObject for our response.categoryListings object
     var categoryListing = cLO.newCategoryListingObject();
 
-    // console.log(ourResponseObj.address, place.vicinity);
-    // console.log('\nhelper2.js formatResponse, place: ', place, '\n\n');
     categoryListing.coordinates = place.geometry.location;
     categoryListing.place_id = place.place_id;
     categoryListing.address = place.vicinity;
     categoryListing.rating = place.rating;
     categoryListing.name = place.name;
-    // console.log('---name', place.name);
 
-    // console.log('\n\nnew categoryListing Ready: \n\n', categoryListing);
     categoryListings.push(categoryListing);
   });
 
