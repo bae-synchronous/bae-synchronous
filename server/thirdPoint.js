@@ -1,4 +1,3 @@
-var config = require('./config');
 
 function getThirdPoint (coordinates1, coordinates2) {
     // implements the midpoint formula to calculate a third point

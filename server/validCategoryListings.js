@@ -20,7 +20,6 @@
   // listings of type "category" which are <= maxTime away from both address1, and from address2
 
 var axios  = require('axios');
-var config = require('./config');
 var _ = require('underscore');
 
 // test data
@@ -34,7 +33,6 @@ var _ = require('underscore');
 
 // GoogleMapsDistanceMatrixAPI_base uri
 var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
-var API_KEY_Server = config.shServerKey1;
 
 
 // function getValidCategoryListings(inputData, functionThatNeedsMyData){
@@ -48,7 +46,7 @@ function getValidCategoryListings(inputData){
 
   // moved my promises chain TO HERE
   // taking it out of getGoogleCommuteData function
-
+  console.log(process.env.DISTANCE_MATRIX_API_KEY);
   // var googleCommuteData = getGoogleCommuteData(inputData);
   return getGoogleCommuteData(inputData)
   .then(function (googleCommuteData){
@@ -77,7 +75,7 @@ function getGoogleCommuteData(inputData){
       units:        'imperial',
       origins:      getOriginsString(inputData),
       destinations: getDestinationsString(inputData),
-      key:          API_KEY_Server
+      key:          process.env.DISTANCE_MATRIX_API_KEY
     }
   })
 

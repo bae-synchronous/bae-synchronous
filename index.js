@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var requestHandler = require('./server/request_handler.js');
 var dummyData = require('./server/dummyData/data_we_return_to_client');
-
+require('dotenv').config();
 
 var app = express();
 app.set('port', (process.env.PORT || 8000));
@@ -25,6 +25,7 @@ app.post('/places', function(req, res) {
 var server = app.listen(app.get('port'), function () {
   var port = server.address().port;
     console.log('bae-synchronous is running on port ', port);
+    console.log(process.env);
 });
 
 // // test validCategoryListings.js
