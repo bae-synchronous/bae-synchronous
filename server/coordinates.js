@@ -1,13 +1,10 @@
 var axios = require('axios');
-var config = require('./config');
 
 var initializeResultsObject = require('./categoryListingObject').initializeResultsObject;
 var getThirdPoint = require('./thirdPoint').getThirdPoint;
 var getRadius = require('./thirdPoint').getRadius;
 var helper2 = require('./helper2');
 var helper = require('./helper');
-
-var API_KEY = process.env.STEVE_KEY;
 
 //  TODO: move testing code into a testing file
 /////
@@ -24,11 +21,11 @@ var API_KEY = process.env.STEVE_KEY;
 // retreives geographic coordinates for an address
 function getCoordinates(address){
   address = helper.replaceEmptySpaces(address);
-  console.log("API key line 26 coordinates.js", API_KEY);
+  console.log("API key line 26 coordinates.js", "STEVE_KEY", process.env.STEVE_KEY);
   return axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         address: address,
-        key: API_KEY
+        key: process.env.STEVE_KEY
       }
     })
     .then(function (response) {
@@ -53,7 +50,7 @@ function getPlaces(coordinates,radius,type, name){
       radius: radius,
       type: type,
       // name: name, // filtering results by name is possible via this parameter
-      key: API_KEY
+      key: process.env.STEVE_KEY
     }
   })
   .then(function (response) {
