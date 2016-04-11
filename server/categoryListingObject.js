@@ -32,7 +32,7 @@ function initializeResultsObject(address1, address2, category, maxTime){
     maxTime: maxTime,
     categoryListings: []      // this stores an array of newCategoryListingObject()'s: see above
   };
-return resultsObject
+return resultsObject;
 }
 
 module.exports = {
