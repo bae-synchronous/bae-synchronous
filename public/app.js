@@ -47,14 +47,10 @@ angular.module('bae-synchronous', [])
       Map.postData($scope.homeAddress, $scope.workAddress, $scope.selectedPlace, $scope.time)
       .then(function(data, err) {
         if (err) {
-          console.log('error message',err);
+          console.log('error message', err);
         } else {
-          console.log("Recieved data from server", data);
           $scope.listings = data;
           $scope.categoryListings = data.categoryListings;
-          console.log($scope.categoryListings);
-
-          console.log('category: \n', data.categoryListings);
           var marker3 = new google.maps.Marker({
             position: $scope.listings.address1.coordinates,
             map: map
@@ -63,15 +59,12 @@ angular.module('bae-synchronous', [])
             position: $scope.listings.address2.coordinates,
             map: map
           });
-          console.log('b4 loop', $scope.categoryListings);
           for (var i = 0; i < data.categoryListings.length; i++) {
-            console.log('in loop', data.categoryListings, $scope.markers, i);
             $scope.markers[i] = new google.maps.Marker({
               position: data.categoryListings[i].coordinates,
               map: map
           });
-          console.log('markers[i]', $scope.markers[i]);
-          var content = '<div>' + name + $scope.categoryListings[i].name + $scope.categoryListings[i].timeFromAddress1 + '</div>';
+          var content = '<div>' + name + $scope.categoryListings[i].name + '</div>';
 
 
           var firstCoords = $scope.categoryListings[0].coordinates;
@@ -107,11 +100,7 @@ angular.module('bae-synchronous', [])
       }
     });
   };
-
-
-  var exports = {
-
-  }
+  
     //there must be a more efficent way of doing this......
     $scope.places = {
       accounting: 'accounting',
