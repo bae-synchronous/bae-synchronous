@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/main.css" media="screen" title="no title" charset="utf-8">
     <script src="app.js"></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
+    <title>bae-synchronous</title>
    </head>
    <body>
      <div ng-app="bae-synchronous" ng-controller="MainController" class='mainContainer'>
@@ -27,11 +27,6 @@
            <span>Category: </span>
            <select class='location' required ng-model='selectedPlace'>
              <option ng-repeat='place in places'>{{place}}</option>
-             <!-- <option value='gym'>gym</option>
-             <option value='restaraunt'>restaurant</option>
-             <option value='cafe'>cafe</option>
-             <option value='movie_theater'>movie theatre</option>
-             <option value='night_club'>night club</option> -->
            </select>
            <span>Maximum Duration: </span>
            <select class='time' required ng-model='time'>
@@ -50,17 +45,17 @@
 
        <div class="listDiv col-sm-3" ng-if="submitted">
          <div class="categoryListing" ng-repeat="listing in categoryListings">
-           <div>
-             Name: {{ listing.name }}
+           <div class="listName">
+             <span class="categoryTitle">Name:</span> {{ listing.name }}
            </div>
-           <div>
-             From Home: {{ listing.timeFromAddress1 }}
+           <div class="listAddress">
+             <span class="categoryTitle">From Home:</span> {{ listing.timeFromAddress1 }}
            </div>
-           <div>
-             From Work: {{ listing.timeFromAddress2 }}
+           <div class="listAddress">
+             <span class="categoryTitle">From Work:</span> {{ listing.timeFromAddress2 }}
            </div>
-           <div ng-if='listing.rating !== undefined'>
-             Rating: {{ listing.rating }}
+           <div class="listRating" ng-if='listing.rating !== undefined'>
+             <span class="categoryTitle">Rating:</span> {{ listing.rating }}
            </div>
          </div>
        </div>
