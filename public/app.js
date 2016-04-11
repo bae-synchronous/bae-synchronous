@@ -83,11 +83,11 @@ angular.module('bae-synchronous', [])
             map: map
           });
           console.log('b4 loop', $scope.categoryListings);
-          for (var i = 0; i < data.categoryListings.length; i) {
-          console.log('in loop', data.categoryListings, $scope.markers, i);
-          $scope.markers[i] = new google.maps.Marker({
-            position: data.categoryListings[i].coordinates,
-            map: map
+          for (var i = 0; i < data.categoryListings.length; i++) {
+            console.log('in loop', data.categoryListings, $scope.markers, i);
+            $scope.markers[i] = new google.maps.Marker({
+              position: data.categoryListings[i].coordinates,
+              map: map
           });
           console.log('markers[i]', $scope.markers[i]);
           var content = '<div>' + name + $scope.categoryListings[i].name + $scope.categoryListings[i].timeFromAddress1 + '</div>';
@@ -106,7 +106,7 @@ angular.module('bae-synchronous', [])
           });
 
           function expandBounds(bounds, coords) {
-            for (var i = 0; i < coords.length; i) {
+            for (var i = 0; i < coords.length; i++) {
               bounds.north = Math.max(bounds.north, coords[i].lat);
               bounds.south = Math.min(bounds.south, coords[i].lat);
               bounds.east = Math.max(bounds.east, coords[i].lng);
