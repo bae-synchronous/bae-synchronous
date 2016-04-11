@@ -22,10 +22,10 @@
          <form class="" action="/" method="post" ng-submit='postData()' class="mainForm">
            <span style="padding: 10px;" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 
-           <input type="text" id='homeAddress' ng-model='homeAddress' name="address1" placeholder="home address">
-           <input type="text" id='workAddress' ng-model='workAddress' name="address2" placeholder="work address">
+           <input type="text" id='homeAddress' required ng-model='homeAddress' name="address1" placeholder="home address">
+           <input type="text" id='workAddress' required ng-model='workAddress' name="address2" placeholder="work address">
            <span>Category: </span>
-           <select class='location' ng-model='selectedPlace'>
+           <select class='location' required ng-model='selectedPlace'>
              <option ng-repeat='place in places'>{{place}}</option>
              <!-- <option value='gym'>gym</option>
              <option value='restaraunt'>restaurant</option>
@@ -34,7 +34,7 @@
              <option value='night_club'>night club</option> -->
            </select>
            <span>Maximum Duration: </span>
-           <select class='time' ng-model='time'>
+           <select class='time' required ng-model='time'>
             <option value='5'>5 Minutes</option>
             <option value='10'>10 Minutes</option>
             <option value='15'>15 Minutes</option>
