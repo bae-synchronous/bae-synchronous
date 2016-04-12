@@ -55,6 +55,10 @@ input {
 .listDiv {
   padding: 15px;
   color: white;
+  height: 730px;
+  max-height: 730px;
+  padding-top: 15px;
+  overflow-y: scroll;;
 }
 
 .mapDiv {
@@ -80,4 +84,12 @@ input {
   border: solid;
   border-color: white;
   border-radius: 5px;
+}
+
+.pictureDiv img {
+  width: 100%;
+}
+
+.categoryTitle {
+  color: orange;
 }

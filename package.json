@@ -17,12 +17,15 @@
   },
   "homepage": "https://github.com/bae-synchronous/bae-synchronous#readme",
   "dependencies": {
+    "angular": "^1.5.3",
+    "angular-mocks": "^1.5.3",
     "axios": "^0.9.1",
     "body-parser": "^1.15.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.3.0",
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
+    "karma-cli": "^0.1.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -32,6 +35,12 @@
     "gulp-mocha": "^2.2.0",
     "gulp-nodemon": "^2.0.6",
     "gulp-watch": "^4.3.5",
-    "jshint": "^2.9.1"
+    "jasmine-core": "^2.4.1",
+    "jshint": "^2.9.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8",
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.7"
   }
 }

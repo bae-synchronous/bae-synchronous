@@ -13,25 +13,20 @@
     <link rel="stylesheet" href="/main.css" media="screen" title="no title" charset="utf-8">
     <script src="app.js"></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-
+    <title>bae-synchronous</title>
    </head>
    <body>
      <div ng-app="bae-synchronous" ng-controller="MainController" class='mainContainer'>
 
        <div class="formDiv">
-         <form class="" action="/" method="post" ng-submit='postData()' class="mainForm">
+         <form class="" class="mainForm">
            <span style="padding: 10px;" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 
-           <input type="text" id='homeAddress' ng-model='homeAddress' name="address1" placeholder="home address">
-           <input type="text" id='workAddress' ng-model='workAddress' name="address2" placeholder="work address">
+           <input type="text" id='homeAddress'  ng-model='homeAddress' name="address1" placeholder="enter home address">
+           <input type="text" id='workAddress'  ng-model='workAddress' name="address2" placeholder="enter work address">
            <span>Category: </span>
-           <select class='location' ng-model='selectedPlace'>
+           <select class='location' ng-required='!selectedPlace' ng-model='selectedPlace'>
              <option ng-repeat='place in places'>{{place}}</option>
-             <!-- <option value='gym'>gym</option>
-             <option value='restaraunt'>restaurant</option>
-             <option value='cafe'>cafe</option>
-             <option value='movie_theater'>movie theatre</option>
-             <option value='night_club'>night club</option> -->
            </select>
            <span>Maximum Duration: </span>
            <select class='time' ng-model='time'>
@@ -40,27 +35,27 @@
             <option value='15'>15 Minutes</option>
             <option value='20'>20 Minutes</option>
            </select>
-           <button id='submit' class="formSubmitButton btn btn-primary" ng-click='postData()'>Submit</button>
+           <button id='submit' type='submit' value='submit' class="formSubmitButton btn btn-primary" ng-click="postData()" ng-disabled='!homeAddress || !time || !workAddress || !selectedPlace'>Submit</button>
          </form>
        </div>
 
        <div class="pictureDiv" ng-if="!submitted">
-         <h1>Picture</h1>
+         <img src="./clocks.jpg" alt="" />
        </div>
 
        <div class="listDiv col-sm-3" ng-if="submitted">
          <div class="categoryListing" ng-repeat="listing in categoryListings">
-           <div>
-             Name: {{ listing.name }}
+           <div class="listName">
+             <span class="categoryTitle">Name:</span> {{ listing.name }}
            </div>
-           <div>
-             From Home: {{ listing.timeFromAddress1 }}
+           <div class="listAddress">
+             <span class="categoryTitle">From Home:</span> {{ listing.timeFromAddress1 }}
            </div>
-           <div>
-             From Work: {{ listing.timeFromAddress2 }}
+           <div class="listAddress">
+             <span class="categoryTitle">From Work:</span> {{ listing.timeFromAddress2 }}
            </div>
-           <div ng-if='listing.rating !== undefined'>
-             Rating: {{ listing.rating }}
+           <div class="listRating" ng-if='listing.rating !== undefined'>
+             <span class="categoryTitle">Rating:</span> {{ listing.rating }}
            </div>
          </div>
        </div>
@@ -81,7 +76,6 @@
             window.onload = function() {
               console.log("ready");
               var search_button = document.getElementById("submit");
-              console.log(search_button);
               search_button.addEventListener("click", createMap);
             }
             var map;

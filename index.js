@@ -16,16 +16,15 @@ app.post('/', function(req, res) {
 
 app.post('/places', function(req, res) {
     console.log('index.js request made to /places');
-    requestHandler(req, res);
+    // requestHandler(req, res);
     // console.log('\nSH index.js app.post "/places", res.data: \n', res.data);
       // dummyData = JSON.stringify(dummyData);
-      // res.send(dummyData);
+      res.send(dummyData);
 });
 
 var server = app.listen(app.get('port'), function () {
   var port = server.address().port;
     console.log('bae-synchronous is running on port ', port);
-    console.log(process.env);
 });
 
 // // test validCategoryListings.js
