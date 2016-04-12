@@ -19,23 +19,23 @@
      <div ng-app="bae-synchronous" ng-controller="MainController" class='mainContainer'>
 
        <div class="formDiv">
-         <form class="" action="/" method="post" ng-submit='postData()' class="mainForm">
+         <form class="" class="mainForm">
            <span style="padding: 10px;" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
 
-           <input type="text" id='homeAddress' required ng-model='homeAddress' name="address1" placeholder="home address">
-           <input type="text" id='workAddress' required ng-model='workAddress' name="address2" placeholder="work address">
+           <input type="text" id='homeAddress'  ng-model='homeAddress' name="address1" placeholder="enter home address">
+           <input type="text" id='workAddress'  ng-model='workAddress' name="address2" placeholder="enter work address">
            <span>Category: </span>
-           <select class='location' required ng-model='selectedPlace'>
+           <select class='location' ng-required='!selectedPlace' ng-model='selectedPlace'>
              <option ng-repeat='place in places'>{{place}}</option>
            </select>
            <span>Maximum Duration: </span>
-           <select class='time' required ng-model='time'>
+           <select class='time' ng-model='time'>
             <option value='5'>5 Minutes</option>
             <option value='10'>10 Minutes</option>
             <option value='15'>15 Minutes</option>
             <option value='20'>20 Minutes</option>
            </select>
-           <button id='submit' class="formSubmitButton btn btn-primary" ng-click='postData()'>Submit</button>
+           <button id='submit' type='submit' value='submit' class="formSubmitButton btn btn-primary" ng-click="postData()" ng-disabled='!homeAddress || !time || !workAddress || !selectedPlace'>Submit</button>
          </form>
        </div>
 
@@ -76,7 +76,6 @@
             window.onload = function() {
               console.log("ready");
               var search_button = document.getElementById("submit");
-              console.log(search_button);
               search_button.addEventListener("click", createMap);
             }
             var map;
