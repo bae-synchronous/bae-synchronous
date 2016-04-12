@@ -17,11 +17,7 @@ angular.module('bae-synchronous.MainController', [])
           console.log('error message', err);
         } else {
           $scope.listings = data;
-          console.log($scope.listings);
-
           $scope.categoryListings = data.categoryListings;
-          // var home = './home.png';
-          // var work = 'http://findicons.com/files/icons/1279/xpressionism_every_day/128/work.png';
           var marker3 = Marker.makeMarker($scope.listings.address1.coordinates, map);
           var marker4 = Marker.makeMarker($scope.listings.address2.coordinates, map);
 
