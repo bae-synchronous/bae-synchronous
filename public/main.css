@@ -86,8 +86,8 @@ input {
   border-radius: 5px;
 }
 
-.pictureDiv {
-
+.pictureDiv img {
+  width: 100%;
 }
 
 .categoryTitle {
