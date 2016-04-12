@@ -21,7 +21,6 @@ var helper = require('./helper');
 // retreives geographic coordinates for an address
 function getCoordinates(address){
   address = helper.replaceEmptySpaces(address);
-  console.log("API key line 26 coordinates.js", "STEVE_KEY", process.env.STEVE_KEY);
   return axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
         address: address,

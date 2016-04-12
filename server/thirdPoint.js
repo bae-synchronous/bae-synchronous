@@ -1,5 +1,4 @@
 var axios = require('axios');
-var config = require('./config');
 var helper = require('./helper');
 
 function getThirdPoint (coordinates1, coordinates2) {
@@ -25,8 +24,6 @@ function getRadius(address1, address2, maxTime){
   //    - plus half the distance between address1 and address2
   //  Rem: meters - radius must be reported in meters for Google API
 
-  var API_KEY = config.shServerKey1;
-
   var MIN_TO_HOUR = maxTime / 60.0;
   var MPH_DRIVING = 60;
   var MILES_TO_METERS = 1609.34;
@@ -48,7 +45,7 @@ function getRadius(address1, address2, maxTime){
 function getMeters_from_A_to_B(address1, address2){
 
   // GoogleMapsDistanceMatrixAPI_base uri
-  var API_KEY  = config.shServerKey1;  // SH's Google Distancd Matrix API key
+  var API_KEY = process.env.DISTANCE_MATRIX_API_KEY;
   var base_url = "https://maps.googleapis.com/maps/api/distancematrix/json";
 
   return axios.get(base_url, {
